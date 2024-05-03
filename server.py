@@ -1,6 +1,39 @@
 from flask import Flask, render_template
+import sqlite3
+from sqlite3 import Error
 
 app = Flask(__name__)
+
+
+def create_connection():
+    conn = None;
+    try:
+        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+        print("Conexión exitosa a la base de datos con SQLite versión:", sqlite3.version)
+
+        # Crear un objeto cursor
+        cur = conn.cursor()
+
+        # Ejecutar una consulta SELECT
+        cur.execute("SELECT * FROM Inventario")  # Reemplaza 'my_table' con el nombre de tu tabla
+
+        # Imprimir los resultados de la consulta
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+
+def SelectInventario():
+    conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Inventario")
+    rows = cur.fetchall()
+    return rows
 
 @app.route("/")
 @app.route("/sign-in")
@@ -13,7 +46,8 @@ def menu():
 
 @app.route("/menu/inventario")
 def menu_inventario():
-    return render_template('menu_inventario.html')
+    data = SelectInventario()
+    return render_template('menu_inventario.html', data=data)
 
 @app.route("/menu/automoviles")
 def menu_automoviles():
@@ -32,4 +66,5 @@ def menu_facturas():
     return render_template('menu_facturas.html')
 
 if __name__ == '__main__':
+    create_connection()
     app.run(debug=True, port=5004)
