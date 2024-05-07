@@ -75,6 +75,10 @@ def menu_financiero():
 def menu_facturas():
     return render_template('menu_facturas.html')
 
+@app.route("/menu/reparaciones")
+def registro_reparaciones():
+    return render_template('menu_reparaciones.html')
+
 if __name__ == '__main__':
     create_connection()
     app.run(debug=True, port=5007)
