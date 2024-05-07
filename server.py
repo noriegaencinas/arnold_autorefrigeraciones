@@ -1,9 +1,12 @@
-from flask import Flask, render_template
+# Imports for Flask
+from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap4
+# Imports for database
 import sqlite3
 from sqlite3 import Error
 
 app = Flask(__name__)
-
+bootstrap = Bootstrap4(app)
 
 def create_connection():
     conn = None;
@@ -35,9 +38,13 @@ def SelectInventario():
     rows = cur.fetchall()
     return rows
 
+# Flask routes
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('sign-in.html')
+    if request.method == 'GET':
+        return render_template('sign-in.html')
+    if request.method == 'POST':
+        return render_template('menu.html')
 
 @app.route("/sign-in")
 def signin():
@@ -70,4 +77,4 @@ def menu_facturas():
 
 if __name__ == '__main__':
     create_connection()
-    app.run(debug=True, port=5005)
+    app.run(debug=True, port=5007)
