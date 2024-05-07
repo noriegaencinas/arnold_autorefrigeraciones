@@ -35,9 +35,12 @@ def SelectInventario():
     rows = cur.fetchall()
     return rows
 
-@app.route("/")
-@app.route("/sign-in")
+@app.route("/", methods=['GET', 'POST'])
 def index():
+    return render_template('sign-in.html')
+
+@app.route("/sign-in")
+def signin():
     return render_template('sign-in.html')
 
 @app.route("/menu")
@@ -67,4 +70,4 @@ def menu_facturas():
 
 if __name__ == '__main__':
     create_connection()
-    app.run(debug=True, port=5004)
+    app.run(debug=True, port=5005)
