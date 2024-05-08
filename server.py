@@ -16,14 +16,14 @@ from sqlalchemy import Integer, String
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'miguelito'
 
-# CREATE DATABASE
+# CREATE DATABASE 
 class Base(DeclarativeBase):
     pass
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-# CREATE TABLE IN DB with the UserMixin
+# CREATE TABLE IN DB for sqlalchemy
 class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
@@ -53,7 +53,7 @@ def create_connection():
         cur = conn.cursor()
 
         # Ejecutar una consulta SELECT
-        cur.execute("SELECT * FROM Inventario")  # Reemplaza 'my_table' con el nombre de tu tabla
+        cur.execute("SELECT * FROM Inventario") 
 
         # Imprimir los resultados de la consulta
         rows = cur.fetchall()
@@ -78,10 +78,8 @@ def SelectInventario():
 @app.route('/sign-in', methods=["GET", "POST"])
 def signin():
     if request.method == "POST":
-        print("Entro aqui")
         email = request.form.get('email')
         password = request.form.get('password')
-        print(email)
         result = db.session.execute(db.select(User).where(User.email == email))
         user = result.scalar()
         if not user:
