@@ -5,7 +5,7 @@ from sqlite3 import Error
 def create_connection():
     conn = None;
     try:
-        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         print("Conexión exitosa a la base de datos con SQLite versión:", sqlite3.version)
 
         # Crear un objeto cursor
@@ -26,7 +26,7 @@ def create_connection():
             conn.close()
 
 def SelectInventario():
-    conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+    conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM Inventario")
     rows = cur.fetchall()
@@ -35,7 +35,7 @@ def SelectInventario():
 
 def SelectAutomoviles():
     try:
-        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         c.execute("SELECT * FROM Automoviles")
         rows = c.fetchall() 
