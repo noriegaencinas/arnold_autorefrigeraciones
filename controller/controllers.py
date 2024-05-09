@@ -59,9 +59,11 @@ def menu_automoviles():
     return render_template('menu_automoviles.html', automoviles=rows)
 
 @app.route("/menu/empleados")
+@app.route("/menu/empleados/page")
+@app.route("/menu/empleados/page/<int:page>")
 @login_required
-def menu_empleados():
-    rows = SelectEmpleados()
+def menu_empleados(page=1):
+    rows = select_empleados(page)
     return render_template('menu_empleados.html', empleados=rows)
 
 @app.route("/menu/financiero")

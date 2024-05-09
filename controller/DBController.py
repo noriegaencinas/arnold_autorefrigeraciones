@@ -1,4 +1,5 @@
 # Imports for database
+from math import ceil
 import sqlite3
 from sqlite3 import Error
 
@@ -44,23 +45,32 @@ def SelectAutomoviles():
     except Exception as e:
         return str(e) 
     
-def SelectEmpleados():
+def select_empleados(page):
+    limit=10
+    start = limit * (page - 1)
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM Empleados")
-        rows = c.fetchall() 
+        c.execute("SELECT * FROM Empleados LIMIT ?, ?", (start, limit))
+        rows = c.fetchall()
+
+        # Get total number of records
+        c.execute("SELECT count(id_empleado) FROM Empleados")
+        empleadosCount = c.fetchall()[0][0]
+        total_pages = ceil(empleadosCount // limit)
+
         conn.close()
-        return rows
-    except Exception as e:
-        return str(e) 
-    
+        return [rows, total_pages]
+    except sqlite3.Error as e:
+        print("Error:", e)
+        return None
+
 def SelectRegistroReparaciones():
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         c.execute("SELECT * FROM Automoviles WHERE Activo = 0")
-        rows = c.fetchall() 
+        rows = c.fetchall()         
         conn.close()
         return rows
     except Exception as e:

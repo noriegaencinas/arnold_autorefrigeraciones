@@ -3,3 +3,7 @@
     margin-bottom: 20px;
     
 }
+
+.table-responsive {
+    max-height:300px;
+}

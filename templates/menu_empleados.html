@@ -10,9 +10,17 @@
 <!-- Agregar dentro de este bloque el codigo del menu empleados-->
 <div class="container parent">
   <div class="row">
-    <div class="col-lg-8 col-sm-12 col-10 child">
-    <h2 class="text-center">Empleados</h2>
-      <table class="table table-hover" style="background-color: var(--bs-primary-bg-subtle)">
+    <div class="col-lg-8 col-sm-12 col-10 child">      
+    <h2 class="text-center">Empleados
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreateEmpleado">      
+        Agregar
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+        </svg>
+      </button>
+    </h2>    
+    <div class="table-responsive">
+      <table class="table table-hover" style="background-color: var(--bs-primary-bg-subtle)" id="tabla_empleados">
         <thead class="thead-dark">
           <tr>            
             <th scope="col">#</th>
@@ -28,33 +36,129 @@
           </tr>
         </thead>
         <tbody>
-          {% for empleado in empleados %}
-          <tr>
-            <th scope="row">{{ empleado[0] }}</th>
-            <td>{{ empleado[1] }}</td>
-            <td>{{ empleado[2] }}</td>            
-            <td>{{ empleado[6] }}</td>            
-            <td>{{ empleado[7] }}</td>        
-            <td>
-              <button type="button" class="btn btn-danger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                </svg>
-              </button>
-              <button type="button" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                </svg>
-              </button>
-            </td>            
-          </tr>
+          {% for empleado in empleados[0] %}
+            <tr>
+              <th scope="row">{{ empleado[0] }}</th>
+              <td>{{ empleado[1] }}</td>
+              <td>{{ empleado[2] }}</td>            
+              <td>{{ empleado[6] }}</td>            
+              <td>{{ empleado[7] }}</td>        
+              <td>                
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDeleteEmpleado">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                  </svg>
+                </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ModalUpdateEmpleado">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                  </svg>
+                </button>
+              </td>            
+            </tr>
           {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>          
+          {% for i in range(1, empleados[1] + 1) %}
+            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i)}}">{{i}}</a></li>          
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="col-lg-4 col-sm-6 col-10 child">Column 2</div>    
+    <div class="col-lg-4 col-sm-6 col-10 child">
+      <div class="card" style="width: 18rem;" id="details_card">
+        <img src="/static/icons/person-square.svg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <div class="container">
+            <h5 class="card-title">Nombre</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Cargo</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Fecha de contratación</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Horario de trabajo</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Número</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Correo electrónico</h5>
+            <p class="card-text">...</p>
+            <h5 class="card-title">Salario</h5>
+            <p class="card-text">...</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 </div>
 
+<!-- Modal of delete empleado-->
+<div class="modal fade" id="ModalDeleteEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro de que desea eliminar este empleado?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal of update empleado-->
+<div class="modal fade" id="ModalUpdateEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar información de empleado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Introduce la siguiente información para actualizar la información del empleado
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal of create empleado-->
+<div class="modal fade" id="ModalCreateEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo empleado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Introduce la siguiente información para dar de alta al nuevo empleado
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="/static/js/menu_empleados.js"></script>
 {% endblock %}
