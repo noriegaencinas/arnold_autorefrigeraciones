@@ -1,14 +1,19 @@
+from controller.DBController import *
 from server import app
 from model.models import *
-from controller.DBController import SelectInventario
 
-# Imports for Flask
-from flask import render_template, request, url_for, redirect, flash
-
-# Imports for Flask-Login
-from flask_login import login_user, login_required, logout_user
+from flask import render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, LoginManager, login_required
 from werkzeug.security import check_password_hash
 
+# Configure Flask-Login's Login Manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+# Create a user_loader callback
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
 
 # Flask routes
 @app.route("/", methods=['GET', 'POST'])
@@ -50,7 +55,8 @@ def menu_inventario():
 @app.route("/menu/automoviles")
 @login_required
 def menu_automoviles():
-    return render_template('menu_automoviles.html')
+    rows = SelectAutomoviles()
+    return render_template('menu_automoviles.html', automoviles=rows)
 
 @app.route("/menu/empleados")
 @login_required

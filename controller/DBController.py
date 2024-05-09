@@ -30,4 +30,16 @@ def SelectInventario():
     cur = conn.cursor()
     cur.execute("SELECT * FROM Inventario")
     rows = cur.fetchall()
+    conn.close()
     return rows
+
+def SelectAutomoviles():
+    try:
+        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM Automoviles")
+        rows = c.fetchall() 
+        conn.close()
+        return rows
+    except Exception as e:
+        return str(e) 

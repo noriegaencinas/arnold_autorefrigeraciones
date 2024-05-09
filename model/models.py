@@ -1,15 +1,13 @@
-from server import db, app
-
-from sqlalchemy import Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from server import app
 from flask_login import UserMixin
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, String
 from flask_sqlalchemy import SQLAlchemy
 
 # CREATE DATABASE 
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
