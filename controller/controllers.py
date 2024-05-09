@@ -1,5 +1,5 @@
 from controller.DBController import *
-from server import app
+from main import app
 from model.models import *
 
 from flask import render_template, request, redirect, url_for, flash

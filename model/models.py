@@ -1,4 +1,4 @@
-from server import app
+from main import app
 
 from flask_login import UserMixin
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
