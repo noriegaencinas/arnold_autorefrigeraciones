@@ -1,0 +1,368 @@
+[
+    {
+        "label": "db",
+        "importPath": "server",
+        "description": "server",
+        "isExtraImport": true,
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Bootstrap",
+        "importPath": "flask_bootstrap",
+        "description": "flask_bootstrap",
+        "isExtraImport": true,
+        "detail": "flask_bootstrap",
+        "documentation": {}
+    },
+    {
+        "label": "UserMixin",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "LoginManager",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "importPath": "flask_login",
+        "description": "flask_login",
+        "isExtraImport": true,
+        "detail": "flask_login",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "Error",
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "isExtraImport": true,
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DeclarativeBase",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "mapped_column",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "model.User",
+        "description": "model.User",
+        "peekOfCode": "class User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)\n    email: Mapped[str] = mapped_column(String(100), unique=True)\n    password: Mapped[str] = mapped_column(String(100))\n    name: Mapped[str] = mapped_column(String(1000))",
+        "detail": "model.User",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 6,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "class Base(DeclarativeBase):\n    pass\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(model_class=Base)\ndb.init_app(app)\n# CREATE TABLE IN DB for sqlalchemy\nclass User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)\n    email: Mapped[str] = mapped_column(String(100), unique=True)\n    password: Mapped[str] = mapped_column(String(100))",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "class User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)\n    email: Mapped[str] = mapped_column(String(100), unique=True)\n    password: Mapped[str] = mapped_column(String(100))\n    name: Mapped[str] = mapped_column(String(1000))\n# CREATE TABLE IN DB \nwith app.app_context():\n    db.create_all()\n# Configure Flask-Login's Login Manager\nlogin_manager = LoginManager()",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "load_user",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def load_user(user_id):\n    return db.get_or_404(User, user_id)\ndef create_connection():\n    conn = None;\n    try:\n        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')\n        print(\"Conexión exitosa a la base de datos con SQLite versión:\", sqlite3.version)\n        # Crear un objeto cursor\n        cur = conn.cursor()\n        # Ejecutar una consulta SELECT",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "create_connection",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def create_connection():\n    conn = None;\n    try:\n        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')\n        print(\"Conexión exitosa a la base de datos con SQLite versión:\", sqlite3.version)\n        # Crear un objeto cursor\n        cur = conn.cursor()\n        # Ejecutar una consulta SELECT\n        cur.execute(\"SELECT * FROM Inventario\") \n        # Imprimir los resultados de la consulta",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "SelectInventario",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def SelectInventario():\n    conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')\n    cur = conn.cursor()\n    cur.execute(\"SELECT * FROM Inventario\")\n    rows = cur.fetchall()\n    conn.close()\n    return rows\ndef SelectAutomoviles():\n    try:\n        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "SelectAutomoviles",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def SelectAutomoviles():\n    try:\n        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')\n        c = conn.cursor()\n        c.execute(\"SELECT * FROM Automoviles\")\n        rows = c.fetchall() \n        conn.close()\n        return rows\n    except Exception as e:\n        return str(e) ",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "signin",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def signin():\n    if request.method == \"POST\":\n        email = request.form.get('email')\n        password = request.form.get('password')\n        result = db.session.execute(db.select(User).where(User.email == email))\n        user = result.scalar()\n        if not user:\n            flash(\"That email does not exist, please try again.\")\n            return redirect(url_for('signin'))\n        elif not check_password_hash(user.password, password):",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def logout():\n    logout_user()\n    return redirect(url_for('signin'))\n@app.route(\"/menu\")\n@login_required\ndef menu():\n    return render_template('menu.html')\n@app.route(\"/menu/inventario\")\n@login_required\ndef menu_inventario():",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu():\n    return render_template('menu.html')\n@app.route(\"/menu/inventario\")\n@login_required\ndef menu_inventario():\n    data = SelectInventario()\n    return render_template('menu_inventario.html', data=data)\n@app.route(\"/menu/automoviles\")\n@login_required\ndef menu_automoviles():",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu_inventario",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu_inventario():\n    data = SelectInventario()\n    return render_template('menu_inventario.html', data=data)\n@app.route(\"/menu/automoviles\")\n@login_required\ndef menu_automoviles():\n    rows = SelectAutomoviles()\n    return render_template('menu_automoviles.html', automoviles=rows)\n@app.route(\"/menu/empleados\")\n@login_required",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu_automoviles",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu_automoviles():\n    rows = SelectAutomoviles()\n    return render_template('menu_automoviles.html', automoviles=rows)\n@app.route(\"/menu/empleados\")\n@login_required\ndef menu_empleados():\n    return render_template('menu_empleados.html')\n@app.route(\"/menu/financiero\")\n@login_required\ndef menu_financiero():",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu_empleados",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu_empleados():\n    return render_template('menu_empleados.html')\n@app.route(\"/menu/financiero\")\n@login_required\ndef menu_financiero():\n    return render_template('menu_financiero.html')\n@app.route(\"/menu/facturas\")\n@login_required\ndef menu_facturas():\n    return render_template('menu_facturas.html')",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu_financiero",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu_financiero():\n    return render_template('menu_financiero.html')\n@app.route(\"/menu/facturas\")\n@login_required\ndef menu_facturas():\n    return render_template('menu_facturas.html')\n@app.route(\"/menu/reparaciones\")\n@login_required\ndef registro_reparaciones():\n    return render_template('menu_reparaciones.html')",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "menu_facturas",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def menu_facturas():\n    return render_template('menu_facturas.html')\n@app.route(\"/menu/reparaciones\")\n@login_required\ndef registro_reparaciones():\n    return render_template('menu_reparaciones.html')\nif __name__ == '__main__':\n    create_connection()\n    app.run(debug=True, port=5001)",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "registro_reparaciones",
+        "kind": 2,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "def registro_reparaciones():\n    return render_template('menu_reparaciones.html')\nif __name__ == '__main__':\n    create_connection()\n    app.run(debug=True, port=5001)",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "app = Flask(__name__)\napp.config['SECRET_KEY'] = 'miguelito'\n# CREATE DATABASE \nclass Base(DeclarativeBase):\n    pass\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(model_class=Base)\ndb.init_app(app)\n# CREATE TABLE IN DB for sqlalchemy\nclass User(UserMixin, db.Model):",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SECRET_KEY']",
+        "kind": 5,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "app.config['SECRET_KEY'] = 'miguelito'\n# CREATE DATABASE \nclass Base(DeclarativeBase):\n    pass\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(model_class=Base)\ndb.init_app(app)\n# CREATE TABLE IN DB for sqlalchemy\nclass User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_DATABASE_URI']",
+        "kind": 5,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(model_class=Base)\ndb.init_app(app)\n# CREATE TABLE IN DB for sqlalchemy\nclass User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)\n    email: Mapped[str] = mapped_column(String(100), unique=True)\n    password: Mapped[str] = mapped_column(String(100))\n    name: Mapped[str] = mapped_column(String(1000))\n# CREATE TABLE IN DB ",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "db = SQLAlchemy(model_class=Base)\ndb.init_app(app)\n# CREATE TABLE IN DB for sqlalchemy\nclass User(UserMixin, db.Model):\n    id: Mapped[int] = mapped_column(Integer, primary_key=True)\n    email: Mapped[str] = mapped_column(String(100), unique=True)\n    password: Mapped[str] = mapped_column(String(100))\n    name: Mapped[str] = mapped_column(String(1000))\n# CREATE TABLE IN DB \nwith app.app_context():",
+        "detail": "server",
+        "documentation": {}
+    },
+    {
+        "label": "login_manager",
+        "kind": 5,
+        "importPath": "server",
+        "description": "server",
+        "peekOfCode": "login_manager = LoginManager()\nlogin_manager.init_app(app)\n# Create a user_loader callback\n@login_manager.user_loader\ndef load_user(user_id):\n    return db.get_or_404(User, user_id)\ndef create_connection():\n    conn = None;\n    try:\n        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')",
+        "detail": "server",
+        "documentation": {}
+    }
+]

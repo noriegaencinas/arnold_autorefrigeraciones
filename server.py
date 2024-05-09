@@ -1,6 +1,6 @@
 # Imports for Flask
 from flask import Flask, render_template, request, url_for, redirect, flash
-from flask_bootstrap import Bootstrap4
+from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 # Imports for database
 import sqlite3
@@ -71,7 +71,19 @@ def SelectInventario():
     cur = conn.cursor()
     cur.execute("SELECT * FROM Inventario")
     rows = cur.fetchall()
+    conn.close()
     return rows
+
+def SelectAutomoviles():
+    try:
+        conn = sqlite3.connect('database/arnold_autorefrigeraciones.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM Automoviles")
+        rows = c.fetchall() 
+        conn.close()
+        return rows
+    except Exception as e:
+        return str(e) 
 
 # Flask routes
 @app.route("/", methods=['GET', 'POST'])
@@ -113,7 +125,8 @@ def menu_inventario():
 @app.route("/menu/automoviles")
 @login_required
 def menu_automoviles():
-    return render_template('menu_automoviles.html')
+    rows = SelectAutomoviles()
+    return render_template('menu_automoviles.html', automoviles=rows)
 
 @app.route("/menu/empleados")
 @login_required

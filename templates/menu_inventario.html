@@ -1,46 +1,108 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<section style="background-color: #6046FF;">
-    <div class="container">
-      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <div style="text-align: center;">
-          <img src="/static/img/logo.png" alt="Descripción de la imagen" style="width: 150px; height: auto;">
-        </div>
-        <h1 class="text-center" style="color: #ffffff;">Inventario</h1>
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        </a>
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        </ul>
-      </header>
-    </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="/static/js/color-modes.js"></script>
-</section>
+{% extends 'base.html' %}
+
+{% block nombre_menu %}Gestión de automóviles{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/style.css">
 <section class="py-2">
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Tipo</th>
-        </tr>
-      {% for row in data %}
-      <tbody>
-        <tr>
-          <td>{{ row[0] }}</td>
-          <td>{{ row[1] }}</td>
-          <td>{{ row[2] }}</td>
-          <td>{{ row[3] }}</td>
-          <td>{{ row[4] }}</td>
-        </tr>
-      </tbody>
-      {% endfor %}
-    </table>
-  </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Automóviles</h2>
+                <table id="automoviles-table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Placas</th>
+                            <th>Nombre del Propietario</th>
+                            <th>Motivo de Ingreso</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Notas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for auto in automoviles %}
+                        <tr>
+                            <td>{{ auto[0] }}</td>
+                            <td>{{ auto[1] }}</td>
+                            <td>{{ auto[2] }}</td>
+                            <td>{{ auto[3] }}</td>
+                            <td>{{ auto[4] }}</td>
+                            <td>{{ auto[5] }}</td>
+                            <td>{{ auto[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Detalles del Automóvil</h2>
+                <table id="detalle-automovil" class="table">
+                    <!-- Contenido de la tabla de detalles -->
+                </table>
+                <button id="actualizar-btn" class="btn btn-primary">Actualizar</button>
+            </div>
+        </div>
+    </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    // Manejar clic en filas de la tabla de automóviles
+    document.addEventListener("DOMContentLoaded", function() {
+        var rows = document.querySelectorAll("#automoviles-table tbody tr");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                // Obtener datos del automóvil seleccionado
+                var id = row.cells[0].innerText;
+                var modelo = row.cells[1].innerText;
+                var placas = row.cells[2].innerText;
+                var propietario = row.cells[3].innerText;
+                var motivo = row.cells[4].innerText;
+                var fecha = row.cells[5].innerText;
+                var notas = row.cells[6].innerText;
+
+                // Actualizar campos en la tabla de detalles
+                document.getElementById("detalle-automovil").innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Placas</th>
+                            <th>Nombre del Propietario</th>
+                            <th>Motivo de Ingreso</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Notas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${id}</td>
+                            <td><input type="text" id="modelo" value="${modelo}"></td>
+                            <td><input type="text" id="placas" value="${placas}"></td>
+                            <td><input type="text" id="propietario" value="${propietario}"></td>
+                            <td><input type="text" id="motivo" value="${motivo}"></td>
+                            <td><input type="text" id="fecha" value="${fecha}"></td>
+                            <td><input type="text" id="notas" value="${notas}"></td>
+                        </tr>
+                    </tbody>
+                `;
+            });
+        });
+
+        // Manejar clic en el botón de actualización
+        document.getElementById("actualizar-btn").addEventListener("click", function() {
+            // Obtener valores de los campos de entrada
+            var modelo = document.getElementById("modelo").value;
+            var placas = document.getElementById("placas").value;
+            var propietario = document.getElementById("propietario").value;
+            var motivo = document.getElementById("motivo").value;
+            var fecha = document.getElementById("fecha").value;
+            var notas = document.getElementById("notas").value;
+
+            // Enviar los datos al servidor para actualizar la base de datos (usando Ajax con fetch o XMLHttpRequest)
+        });
+    });
+</script>
+
+{% endblock %}
