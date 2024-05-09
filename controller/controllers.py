@@ -13,7 +13,7 @@ login_manager.init_app(app)
 # Create a user_loader callback
 @login_manager.user_loader
 def load_user(user_id):
-    return db.get_or_404(User, user_id)
+    return db.get_or_404(Users, user_id)
 
 # Flask routes
 @app.route("/", methods=['GET', 'POST'])
@@ -22,7 +22,7 @@ def signin():
     if request.method == "POST":
         email = request.form.get('email')
         password = request.form.get('password')
-        result = db.session.execute(db.select(User).where(User.email == email))
+        result = db.session.execute(db.select(Users).where(Users.email == email))
         user = result.scalar()
         if not user:
             flash("That email does not exist, please try again.")
@@ -61,7 +61,8 @@ def menu_automoviles():
 @app.route("/menu/empleados")
 @login_required
 def menu_empleados():
-    return render_template('menu_empleados.html')
+    rows = SelectEmpleados()
+    return render_template('menu_empleados.html', empleados=rows)
 
 @app.route("/menu/financiero")
 @login_required
