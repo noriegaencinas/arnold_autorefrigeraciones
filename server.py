@@ -1,6 +1,5 @@
 # Imports for Flask
 from flask import Flask, render_template, request, url_for, redirect, flash
-from flask_bootstrap import Bootstrap4
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 # Imports for database
 import sqlite3
