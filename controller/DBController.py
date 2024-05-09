@@ -54,3 +54,14 @@ def SelectEmpleados():
         return rows
     except Exception as e:
         return str(e) 
+    
+def SelectRegistroReparaciones():
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM Automoviles WHERE Activo = 0")
+        rows = c.fetchall() 
+        conn.close()
+        return rows
+    except Exception as e:
+        return str(e)    

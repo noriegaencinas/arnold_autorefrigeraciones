@@ -4,6 +4,48 @@
 
 {% block content %}
 <!-- Agregar dentro de este bloque el codigo del menu empleados-->
-<h1>Hello world</h1>
+<section class="py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Automóviles</h2>
+                <table id="automoviles-table" class="table table-hover">
+                    <thead>
+                        <tr>                            
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Placas</th>
+                            <th>Nombre del Propietario</th>
+                            <th>Motivo de Ingreso</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Fecha de egreso</th>
+                            <th>Notas</th>
+                            <th>Costo mano de obra</th>
+                            <th>Piezas usadas</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reparacion in reparaciones %}
+                        <tr>
+                            <td>{{ reparacion[0] }}</td>
+                            <td>{{ reparacion[1] }}</td>
+                            <td>{{ reparacion[2] }}</td>
+                            <td>{{ reparacion[3] }}</td>
+                            <td>{{ reparacion[4] }}</td>
+                            <td>{{ reparacion[5] }}</td>
+                            <td>{{ reparacion[6] }}</td>
+                            <td>{{ reparacion[7] }}</td>
+                            <td>{{ reparacion[8] }}</td>
+                            <td>{{ reparacion[9] }}</td>
+                            <td>{{ reparacion[10] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
