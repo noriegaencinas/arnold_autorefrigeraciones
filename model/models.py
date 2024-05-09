@@ -1,8 +1,10 @@
 from server import app
+
 from flask_login import UserMixin
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String
 from flask_sqlalchemy import SQLAlchemy
+
 
 # CREATE DATABASE 
 class Base(DeclarativeBase):

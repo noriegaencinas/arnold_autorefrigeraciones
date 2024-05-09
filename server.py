@@ -9,5 +9,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 from controller.controllers import *
 
 if __name__ == '__main__':
-    create_connection()
     app.run(debug=True, port=5001)
