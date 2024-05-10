@@ -65,6 +65,26 @@ def select_empleados(page):
         print("Error:", e)
         return None
 
+def eliminar_empleado_id(id_empleado):
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("DELETE FROM Empleados WHERE id_empleado = ?", (id_empleado,))
+        conn.commit()
+        conn.close()
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+def agregar_empleado_db(nombre_completo, cargo, fecha_contratacion, numero_empleado, horario_trabajo, numero_contacto, correo_electronico, salario):
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("INSERT INTO Empleados (nombre_completo, cargo, fecha_contratacion, numero_empleado, horario_trabajo, numero_contacto, correo_electronico, salario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (nombre_completo, cargo, fecha_contratacion, numero_empleado, horario_trabajo, numero_contacto, correo_electronico, salario))
+        conn.commit()
+        conn.close()
+    except sqlite3.Error as e:
+        print("Error:", e)
+
 def SelectRegistroReparaciones():
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")

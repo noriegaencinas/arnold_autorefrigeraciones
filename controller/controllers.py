@@ -66,6 +66,29 @@ def menu_empleados(page=1):
     rows = select_empleados(page)
     return render_template('menu_empleados.html', empleados=rows)
 
+@app.route("/menu/empleados/eliminar/<int:id_empleado>")
+@login_required
+def eliminar_empleado(id):
+    eliminar_empleado_id(id)
+    return redirect(url_for('menu_empleados'))
+
+@app.route("/menu/empleados/agregar", methods=['GET', 'POST'])
+@login_required
+def agregar_empleado():    
+    if request.method == 'POST':
+        nombre_completo = request.form['nombre_completo']
+        cargo = request.form['cargo']
+        fecha_contratacion = request.form['fecha_contratacion']
+        numero_empleado = "13131"
+        horario_trabajo = request.form['horario_trabajo']
+        numero_contacto = request.form['numero_contacto']
+        correo_electronico = request.form['correo_electronico']
+        salario = request.form['salario']
+
+        agregar_empleado_db(nombre_completo, cargo, fecha_contratacion, numero_empleado, horario_trabajo, numero_contacto, correo_electronico, salario)
+        return redirect(url_for('menu_empleados'))
+    return redirect(url_for('menu_empleados'))
+
 @app.route("/menu/financiero")
 @login_required
 def menu_financiero():

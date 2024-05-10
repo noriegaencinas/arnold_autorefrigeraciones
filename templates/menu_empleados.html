@@ -44,7 +44,7 @@
               <td>{{ empleado[6] }}</td>            
               <td>{{ empleado[7] }}</td>        
               <td>                
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDeleteEmpleado">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDeleteEmpleado" data-employee-id="{{ empleado[0] }}" onclick="updateModalContent(this)"">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                   </svg>
@@ -78,23 +78,26 @@
     <div class="col-lg-4 col-sm-6 col-10 child">
       <div class="card" style="width: 18rem;" id="details_card">
         <img src="/static/icons/person-square.svg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="container">
-            <h5 class="card-title">Nombre</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Cargo</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Fecha de contratación</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Horario de trabajo</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Número</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Correo electrónico</h5>
-            <p class="card-text">...</p>
-            <h5 class="card-title">Salario</h5>
-            <p class="card-text">...</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Nombre</h5>
+              <p class="card-text">...</p>
+              <h5 class="card-title">Cargo</h5>
+              <p class="card-text">...</p>
+              <h5 class="card-title">Fecha de contratación</h5>
+              <p class="card-text">...</p>
+              <h5 class="card-title">Horario de trabajo</h5>
+              <p class="card-text">...</p>
+            </div>
+              <div class="col">
+              <h5 class="card-title">Número</h5>
+              <p class="card-text">...</p>
+              <h5 class="card-title">Correo electrónico</h5>
+              <p class="card-text">...</p>
+              <h5 class="card-title">Salario</h5>
+              <p class="card-text">...</p>    
+            </div>
           </div>
         </div>
       </div>
@@ -111,11 +114,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Está seguro de que desea eliminar este empleado?
+        ¿Está seguro de que desea eliminar al empleado con ID: <span id="employeeIdPlaceholder"></span>?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Confirmar</button>
+        <a href="url_for('eliminar_empleado_id', <ID>)" class="btn btn-danger">Confirmar</a>
       </div>
     </div>
   </div>
@@ -132,9 +135,9 @@
       <div class="modal-body">
         Introduce la siguiente información para actualizar la información del empleado
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer">        
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Confirmar</button>
+        <a href="url_for()" class="btn btn-primary">Confirmar</a>
       </div>
     </div>
   </div>
@@ -150,11 +153,41 @@
       </div>
       <div class="modal-body">
         Introduce la siguiente información para dar de alta al nuevo empleado
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Confirmar</button>
-      </div>
+        <form action="{{ url_for('agregar_empleado') }}", method="POST">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Nombre completo</label>
+            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="message-text" class="col-form-label">Cargo</label>
+            <input name="cargo" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
+            <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
+            <input name="horario_trabajo" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Número</label>
+            <input name="numero_contacto" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Correo electrónico</label>
+            <input name="correo_electronico" type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Salario:</label>
+            <input name="salario" type="text" class="form-control" id="recipient-name">
+          </div>      
+          <div class="modal-footer">        
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>  
+        </form>
+      </div>      
     </div>
   </div>
 </div>
