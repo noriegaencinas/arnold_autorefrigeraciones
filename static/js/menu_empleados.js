@@ -1,17 +1,10 @@
-function updateModalContent(button) {
-    // Get the employee ID from the button
-    var employeeId = button.getAttribute("data-employee-id");
-    
-    // Update the modal content with the employee ID
-    document.getElementById("employeeIdPlaceholder").innerText = employeeId;
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     const rows = document.querySelectorAll('#tabla_empleados tbody tr');
 
     rows.forEach(row => {
       row.addEventListener('click', function () {
         // Extract information from the clicked row
+
         const nombre = row.cells[1].textContent;
         const cargo = row.cells[2].textContent;
         const numero = row.cells[3].textContent;
@@ -27,12 +20,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="card-text">${nombre}</p>
                 <h5 class="card-title">Cargo</h5>
                 <p class="card-text">${cargo}</p>
+                <h5 class="card-title">Fecha de contratación</h5>
+                <p class="card-text">${nombre}</p>
+                <h5 class="card-title">Horario de trabajo</h5>
+                <p class="card-text">${nombre}</p>
               </div>
               <div class="col">
                 <h5 class="card-title">Número</h5>
                 <p class="card-text">${numero}</p>
                 <h5 class="card-title">Correo electrónico</h5>
                 <p class="card-text">${correo}</p>
+                <h5 class="card-title">Salario</h5>
+                <p class="card-text">${nombre}</p>    
               </div>
             </div>
           </div>
@@ -40,3 +39,13 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
+
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}

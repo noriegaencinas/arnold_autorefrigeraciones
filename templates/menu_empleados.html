@@ -20,19 +20,15 @@
       </button>
     </h2>    
     <div class="table-responsive">
-      <table class="table table-hover" style="background-color: var(--bs-primary-bg-subtle)" id="tabla_empleados">
+      <table class="table table-hover" id="tabla_empleados">
         <thead class="thead-dark">
           <tr>            
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Cargo</th>            
-            <!--<th scope="col">Fecha de contratación</th>-->
-            <!--<th scope="col">numero_empleado</th>-->
-            <!--<th scope="col">Horario de trabajo</th>-->
             <th scope="col">Numero</th>
             <th scope="col">Correo</th>
             <th scope="col">Acciones</th>            
-            <!--<th scope="col">Salario</th>-->
           </tr>
         </thead>
         <tbody>
@@ -43,20 +39,92 @@
               <td>{{ empleado[2] }}</td>            
               <td>{{ empleado[6] }}</td>            
               <td>{{ empleado[7] }}</td>        
-              <td>                
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDeleteEmpleado" data-employee-id="{{ empleado[0] }}" onclick="updateModalContent(this)"">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                  </svg>
-                </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ModalUpdateEmpleado">
+              <td>       
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal_update{{empleado[0]}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                   </svg>
-                </button>
+                </button>         
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete{{empleado[0]}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                  </svg>
+                </button>                
               </td>            
             </tr>
+            <!-- Modal of update empleado-->
+            <div class="modal fade" id="modal_update{{empleado[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar la información del empleado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Modifica los campos necesarios
+                    <form action="{{url_for('actualizar_empleado', id_empleado=empleado[0])}}", method="POST">
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Nombre completo</label>
+                        <input name="nombre_completo" type="text" class="form-control" id="recipient-name" value="{{ empleado[1] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="message-text" class="col-form-label">Cargo</label>
+                        <input name="cargo" type="text" class="form-control" id="recipient-name" value="{{ empleado[2] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
+                        <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name" value="{{ empleado[3] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
+                        <input name="horario_trabajo" type="text" class="form-control" id="recipient-name" value="{{ empleado[5] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Número</label>
+                        <input name="numero_contacto" type="text" class="form-control" id="recipient-name" value="{{ empleado[6] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Correo electrónico</label>
+                        <input name="correo_electronico" type="text" class="form-control" id="recipient-name" value="{{ empleado[7] }}">
+                      </div>
+                      <div class="mb-1">
+                        <label for="recipient-name" class="col-form-label">Salario:</label>
+                        <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[8] }}">
+                      </div>      
+                      <div class="modal-footer">        
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>  
+                    </form>
+                  </div>      
+                </div>
+              </div>
+            </div>
+            <!-- Modal of delete empleado-->
+            <div class="modal fade" id="modal_delete{{empleado[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <form action="{{url_for('eliminar_empleado', id_empleado=empleado[0])}}" method="POST">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      ¿Estás seguro de que deseas eliminar este empleado?
+                      <label for="recipient-name" class="col-form-label">Nombre:</label>
+                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[1] }}" disabled>                    
+                      <label for="recipient-name" class="col-form-label">Cargo:</label>
+                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[2] }}" disabled>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <a type="button" class="btn btn-danger" id="confirmDeleteButton">Confirmar</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           {% endfor %}
           </tbody>
         </table>
@@ -64,13 +132,13 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item disabled">
-            <a class="page-link">Previous</a>
+            <a class="page-link">Anterior</a>
           </li>          
-          {% for i in range(1, empleados[1] + 1) %}
-            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i)}}">{{i}}</a></li>          
+          {% for i in range(empleados[1]) %}
+            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i+1)}}">{{i+1}}</a></li>          
           {% endfor %}
           <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a class="page-link" href="#">Siguiente</a>
           </li>
         </ul>
       </nav>
@@ -105,44 +173,6 @@
   </div>
 </div>
 
-<!-- Modal of delete empleado-->
-<div class="modal fade" id="ModalDeleteEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ¿Está seguro de que desea eliminar al empleado con ID: <span id="employeeIdPlaceholder"></span>?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="url_for('eliminar_empleado_id', <ID>)" class="btn btn-danger">Confirmar</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal of update empleado-->
-<div class="modal fade" id="ModalUpdateEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar información de empleado</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Introduce la siguiente información para actualizar la información del empleado
-      </div>
-      <div class="modal-footer">        
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="url_for()" class="btn btn-primary">Confirmar</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal of create empleado-->
 <div class="modal fade" id="ModalCreateEmpleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-centered">
@@ -153,7 +183,7 @@
       </div>
       <div class="modal-body">
         Introduce la siguiente información para dar de alta al nuevo empleado
-        <form action="{{ url_for('agregar_empleado') }}", method="POST">
+        <form action="{{ url_for('crear_empleado') }}", method="POST">
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Nombre completo</label>
             <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
@@ -192,6 +222,18 @@
   </div>
 </div>
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>      
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      El empleado ha sido eliminado correctamente
+    </div>
+  </div>
+</div>
 
 <script src="/static/js/menu_empleados.js"></script>
 {% endblock %}

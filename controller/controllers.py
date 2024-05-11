@@ -16,6 +16,9 @@ def load_user(user_id):
     return db.get_or_404(Users, user_id)
 
 # Flask routes
+
+# rutas de inicio de sesión
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route('/sign-in', methods=["GET", "POST"])
 def signin():
@@ -41,10 +44,14 @@ def logout():
     logout_user()
     return redirect(url_for('signin'))
 
+# Menu prinicipal
+
 @app.route("/menu")
 @login_required
 def menu():
     return render_template('menu.html')
+
+# Menu inventario
 
 @app.route("/menu/inventario")
 @login_required
@@ -52,52 +59,80 @@ def menu_inventario():
     data = SelectInventario()
     return render_template('menu_inventario.html', data=data)
 
+# Menu automoviles
+
 @app.route("/menu/automoviles")
 @login_required
 def menu_automoviles():
     rows = SelectAutomoviles()
     return render_template('menu_automoviles.html', automoviles=rows)
 
+# Menu empelados
+
 @app.route("/menu/empleados")
 @app.route("/menu/empleados/page")
 @app.route("/menu/empleados/page/<int:page>")
 @login_required
 def menu_empleados(page=1):
-    rows = select_empleados(page)
+    rows = select_empleados_db(page)
     return render_template('menu_empleados.html', empleados=rows)
 
-@app.route("/menu/empleados/eliminar/<int:id_empleado>")
+@app.route("/menu/empleados/eliminar/<int:id_empleado>", methods=['GET', 'POST'])
 @login_required
-def eliminar_empleado(id):
-    eliminar_empleado_id(id)
+def eliminar_empleado(id_empleado):
+    if request.method == 'POST':
+        eliminar_empleado_id(id_empleado)
+        return redirect(url_for('menu_empleados'))
     return redirect(url_for('menu_empleados'))
+
 
 @app.route("/menu/empleados/agregar", methods=['GET', 'POST'])
 @login_required
-def agregar_empleado():    
+def crear_empleado():    
     if request.method == 'POST':
         nombre_completo = request.form['nombre_completo']
         cargo = request.form['cargo']
         fecha_contratacion = request.form['fecha_contratacion']
-        numero_empleado = "13131"
+        activo = 1
         horario_trabajo = request.form['horario_trabajo']
         numero_contacto = request.form['numero_contacto']
         correo_electronico = request.form['correo_electronico']
         salario = request.form['salario']
-
-        agregar_empleado_db(nombre_completo, cargo, fecha_contratacion, numero_empleado, horario_trabajo, numero_contacto, correo_electronico, salario)
+        agregar_empleado_db(nombre_completo, cargo, fecha_contratacion, activo, horario_trabajo, numero_contacto, correo_electronico, salario)
         return redirect(url_for('menu_empleados'))
     return redirect(url_for('menu_empleados'))
+
+@app.route("/menu/empleados/modificar/<int:id_empleado>", methods=['GET', 'POST'])
+@login_required
+def actualizar_empleado(id_empleado):
+    if request.method == 'POST':
+        nombre_completo = request.form['nombre_completo']
+        cargo = request.form['cargo']
+        fecha_contratacion = request.form['fecha_contratacion']
+        activo = 1
+        horario_trabajo = request.form['horario_trabajo']
+        numero_contacto = request.form['numero_contacto']
+        correo_electronico = request.form['correo_electronico']
+        salario = request.form['salario']
+        actualizar_empleado_db(id_empleado, nombre_completo, cargo, fecha_contratacion, activo, horario_trabajo, numero_contacto, correo_electronico, salario)
+        return redirect(url_for('menu_empleados'))
+    return redirect(url_for('menu_empleados'))
+
+# Menu financiero
 
 @app.route("/menu/financiero")
 @login_required
 def menu_financiero():
     return render_template('menu_financiero.html')
 
+# Menu facturas
+
 @app.route("/menu/facturas")
 @login_required
 def menu_facturas():
     return render_template('menu_facturas.html')
+
+# Menu reparaciones
 
 @app.route("/menu/reparaciones")
 @login_required
