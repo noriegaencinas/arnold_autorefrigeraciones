@@ -18,7 +18,7 @@ def menu_empleados(page=1):
 @login_required
 def eliminar_empleado(id_empleado):
     if request.method == 'POST':
-        eliminar_empleado_id(id_empleado)
+        eliminar_empleado_db(id_empleado)
         return redirect(url_for('menu_empleados'))
     return redirect(url_for('menu_empleados'))
 

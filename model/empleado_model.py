@@ -23,7 +23,7 @@ def select_empleados_db(page):
         print("Error:", e)
         return None
 
-def eliminar_empleado_id(id_empleado):
+def eliminar_empleado_db(id_empleado):
     inactivo = 0
     try:        
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")

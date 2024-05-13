@@ -18,23 +18,23 @@ def menu_automoviles(page=1):
 @app.route("/menu/automoviles/agregar", methods=['GET', 'POST'])
 @login_required
 def crear_automovil():
-    if request.method == 'POST':    
-        return 'agregado'    
+    if request.method == 'POST':
+        return 'agregado'
         return redirect(url_for('menu_automoviles'))
-    return redirect(url_for('menu_automoviles'))    
+    return redirect(url_for('menu_automoviles'))
 
 @app.route("/menu/automoviles/modificar/<int:id_automovil>", methods=['GET', 'POST'])
 @login_required
 def actualizar_automovil(id_automovil):
-    if request.method == 'POST':        
-        return 'actualizado'   
+    if request.method == 'POST':
+        return 'actualizado'
         return redirect(url_for('menu_automoviles'))
-    return redirect(url_for('menu_automoviles'))   
+    return redirect(url_for('menu_automoviles'))
 
 @app.route("/menu/automoviles/eliminar/<int:id_automovil>", methods=['GET', 'POST'])
 @login_required
-def eliminar_automovil(id_automovil):    
-    if request.method == 'POST':     
+def eliminar_automovil(id_automovil):
+    if request.method == 'POST':
         return 'Eliminado'   
         return redirect(url_for('menu_automoviles'))
     return redirect(url_for('menu_automoviles'))   
