@@ -53,3 +53,26 @@ def actualizar_empleado_db(id_empleado, nombre_completo, cargo, fecha_contrataci
         conn.close()
     except sqlite3.Error as e:
         print("Error:", e)
+
+def select_empleado_by_filter_db(filtro):
+    limit=10    
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))
+        rows = c.fetchall()        
+
+        # Get total number of records
+        c.execute("SELECT count(id_empleado) FROM empleados WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))        
+        count = c.fetchall()[0][0]
+        total_pages = ceil(count / limit)
+
+        conn.close()
+        return [rows, total_pages]
+    except sqlite3.Error as e:
+        print("Error:", e)
+        return None
+
+test = False
+if test:
+    select_empleado_by_filter_db('javier')

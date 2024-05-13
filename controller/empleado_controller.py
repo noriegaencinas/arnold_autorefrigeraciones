@@ -54,3 +54,11 @@ def actualizar_empleado(id_empleado):
         actualizar_empleado_db(id_empleado, nombre_completo, cargo, fecha_contratacion, activo, horario_trabajo, numero_contacto, correo_electronico, salario)
         return redirect(url_for('menu_empleados'))
     return redirect(url_for('menu_empleados'))
+
+@app.route("/menu/empleados/buscar", methods=['GET', 'POST'])
+@login_required
+def select_empleado_by_filter():
+    if request.method == 'POST':
+        filtro = request.form['filtro']
+        rows = select_empleado_by_filter_db(filtro)
+        return render_template('menu_empleados.html', empleados=rows)
