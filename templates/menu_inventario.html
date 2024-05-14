@@ -4,7 +4,7 @@
   {{ super() }}
 {% endblock %}
 
-{% block nombre_menu %}Gestion de empleados{% endblock%} 
+{% block nombre_menu %}Gestion de inventario{% endblock%} 
 {% block content %}
 <!-- Agregar dentro de este bloque el codigo del menu empleados-->
 <div class="container parent">
@@ -12,11 +12,11 @@
     <div class="col-lg-8 col-sm-12 col-10 child">                  
       <nav class="navbar">
         <div class="container-fluid">
-          <form class="d-flex" role="search", action="{{url_for('select_empleado_by_filter')}}", method="POST">
-            <input class="form-control me-2 col-lg-3" type="search" placeholder="Empleado" aria-label="Search" name="filtro">
+          <form class="d-flex" role="search", action="{{url_for('select_producto_by_filter')}}", method="POST">
+            <input class="form-control me-2 col-lg-3" type="search" placeholder="Producto" aria-label="Search" name="filtro">
             <button class="btn btn-outline-success col-lg-3" type="submit">Buscar</button>
           </form>
-          <button type="button" class="btn btn-primary col-lg-3" data-bs-toggle="modal" data-bs-target="#ModalCreateEmpleado">      
+          <button type="button" class="btn btn-primary col-lg-3" data-bs-toggle="modal" data-bs-target="#ModalCreateProducto">      
             Agregar producto
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
@@ -73,11 +73,31 @@
                     </div>
                     <div class="modal-body">
                       Modifica los campos necesarios
-                      <form action="{{url_for('actualizar_producto', id_inventario=inventario.id_inventario)}}", method="POST">
+                      <form action="{{url_for('actualizar_producto', id_inventario=producto.id_inventario)}}", method="POST">
                         <div class="mb-1">
                           <label for="recipient-name" class="col-form-label">Nombre</label>
-                          <input name="Nombre" type="text" class="form-control" id="recipient-name" value="{{ inventario.Nombre }}">
+                          <input name="nombre" type="text" class="form-control" id="recipient-name" value="{{ producto.Nombre }}">
                         </div>
+                        <div class="mb-1">
+                            <label for="recipient-name" class="col-form-label">Cantidad</label>
+                            <input name="cantidad" type="text" class="form-control" id="recipient-name" value="{{ producto.Cantidad }}">
+                          </div>
+                          <div class="mb-1">
+                            <label for="recipient-name" class="col-form-label">Tipo</label>
+                            <input name="tipo" type="text" class="form-control" id="recipient-name" value="{{ producto.Tipo }}">
+                          </div>
+                          <div class="mb-1">
+                            <label for="recipient-name" class="col-form-label">Descripcion</label>
+                            <input name="descripcion" type="text" class="form-control" id="recipient-name" value="{{ producto.Descripcion }}">
+                          </div>
+                          <div class="mb-1">
+                            <label for="recipient-name" class="col-form-label">Precio compra</label>
+                            <input name="precio_compra" type="text" class="form-control" id="recipient-name" value="{{ producto.Precio_Compra }}">
+                          </div>
+                          <div class="mb-1">
+                            <label for="recipient-name" class="col-form-label">Precio venta</label>
+                            <input name="precio_venta" type="text" class="form-control" id="recipient-name" value="{{ producto.Precio_Venta }}">
+                          </div>
                         <div class="modal-footer">        
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                           <button type="submit" class="btn btn-primary">Guardar</button>
@@ -88,22 +108,26 @@
                 </div>
               </div>
               <!-- Modal of delete automovil-->
-              <div class="modal fade" id="modal_delete{{inventario.id_inventario}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="modal_delete{{producto.id_inventario}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
-                    <form action="{{url_for('eliminar_producto', id_automovil=inventario.id_inventario)}}" method="POST">
+                    <form action="{{url_for('eliminar_producto', id_inventario=producto.id_inventario)}}" method="POST">
                       <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         ¿Estás seguro de que deseas eliminar este proucto?
+                        <label for="recipient-name" class="col-form-label">#:</label>
+                        <input name="producto_eliminar" type="text" class="form-control" id="recipient-name" value="{{ producto.id_inventario }}" disabled>
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ inventario.id_inventario }}" disabled>                    
+                        <input name="producto_eliminar" type="text" class="form-control" id="recipient-name" value="{{ producto.Nombre }}" disabled>
+                        <label for="recipient-name" class="col-form-label">Descripcion:</label>
+                        <input name="producto_eliminar" type="text" class="form-control" id="recipient-name" value="{{ producto.Descripcion }}" disabled>                           
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <a type="button" class="btn btn-danger" id="confirmDeleteButton">Confirmar</a>
+                        <button type="submit" class="btn btn-danger" id="confirmDeleteButton">Confirmar</a>
                       </div>
                     </form>
                   </div>
@@ -132,20 +156,40 @@
   </div>
   
 <!-- Modal of create automovil-->
-<div class="modal fade" id="ModalCreateAutomovil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal fade" id="ModalCreateProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo automovil</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo producto</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Introduce la siguiente información para dar de alta al nuevo automovil
-        <form action="{{ url_for('crear_automovil') }}", method="POST">
-          <div class="mb-1">
-            <label for="recipient-name" class="col-form-label">Nombre completo</label>
-            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
-          </div>    
+        Introduce la siguiente información para dar de alta al nuevo producto
+        <form action="{{ url_for('crear_producto') }}", method="POST">
+            <div class="mb-1">
+                <label for="recipient-name" class="col-form-label">Nombre</label>
+                <input name="nombre" type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-1">
+                  <label for="recipient-name" class="col-form-label">Cantidad</label>
+                  <input name="cantidad" type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-1">
+                  <label for="recipient-name" class="col-form-label">Tipo</label>
+                  <input name="tipo" type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-1">
+                  <label for="recipient-name" class="col-form-label">Descripcion</label>
+                  <input name="descripcion" type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-1">
+                  <label for="recipient-name" class="col-form-label">Precio compra</label>
+                  <input name="precio_compra" type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-1">
+                  <label for="recipient-name" class="col-form-label">Precio venta</label>
+                  <input name="precio_venta" type="text" class="form-control" id="recipient-name">
+                </div> 
           <div class="modal-footer">        
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">Confirmar</button>
