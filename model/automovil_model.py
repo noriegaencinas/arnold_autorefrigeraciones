@@ -40,3 +40,16 @@ def contar_automoviles_activos():
     finally:
         if conn:
             conn.close()
+
+def eliminar_automovil_db(id_automovil):
+    inactivo = 0
+    try:        
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("UPDATE empleados SET activo = ? WHERE id_empleado = ?", (inactivo, id_automovil))
+        conn.commit()
+        conn.close()
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+

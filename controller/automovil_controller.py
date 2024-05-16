@@ -38,3 +38,4 @@ def eliminar_automovil(id_automovil):
         return 'Eliminado'   
         return redirect(url_for('menu_automoviles'))
     return redirect(url_for('menu_automoviles'))   
+
