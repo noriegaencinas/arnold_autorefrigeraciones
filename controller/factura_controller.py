@@ -1,6 +1,7 @@
 from main import app
 
 from controller.login_controller import *
+from controller.cliente_controller import *
 
 from model.factura_model import *
 
@@ -9,4 +10,5 @@ from model.factura_model import *
 @app.route("/menu/facturas")
 @login_required
 def menu_facturas():
-    return render_template('menu_facturas.html')
+    options = select_clientes_db()
+    return render_template('menu_facturas.html', cliente_options=options)

@@ -20,7 +20,12 @@
     </div>
     <div class="col-sm-4 mb-2">
       <label for="nombre_menu" class="form-label">Cliente</label>
-      <input type="text" class="form-control" placeholder="Seleccione un cliente">
+      <select class="form-control" id="cliente_select" name="cliente">
+        <option value="">Seleccione un cliente</option>
+        {% for option in cliente_options %}
+        <option value="{{ option[0] }}">{{ option[1] }}</option>
+        {% endfor %}
+      </select>
     </div>
     <div class="col-sm-4 mb-2">
       <label for="nombre_menu" class="form-label">Teléfono</label>
@@ -40,32 +45,28 @@
     </div>
     <div class="col-sm-4 mb-2">
       <label for="nombre_menu" class="form-label">Pago</label>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Seleccionar tipo de pago
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Efectivo</a></li>
-          <li><a class="dropdown-item" href="#">Cheque</a></li>
-          <li><a class="dropdown-item" href="#">Transferencia bancaria</a></li>
-          <li><a class="dropdown-item" href="#">Crédito</a></li>
-        </ul>
-      </div>
+      <select id="inputState" class="form-control">
+        <option selected>Seleccionar tipo de pago</option>
+        <option>Efectivo</option>
+        <option>Cheque</option>
+        <option>Transferencia bancaria</option>
+        <option>Crédito</option>
+      </select>
     </div>
   </div>
   <div class="col-sm-12 text-end mt-3">
-    <button class="btn btn-primary" type="button">Nuevo producto o servicio
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#ModalCreatePS">Nuevo producto o servicio
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
       </svg>
     </button>
-    <button class="btn btn-primary" type="button">Nuevo cliente
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#ModalCreateCliente">Nuevo cliente
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
         <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
       </svg>
     </button>
-    <button class="btn btn-primary" type="button">Agregar producto o servicio
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#">Agregar producto o servicio
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
       </svg>
@@ -73,4 +74,82 @@
 
   </div>    
 </div>
+
+<!-- Modal of create cliente-->
+<div class="modal fade" id="ModalCreateCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo cliente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Introduce la siguiente información para dar de alta al cliente
+        <form action="{{ url_for('crear_cliente') }}", method="POST">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Nombre completo</label>
+            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
+          </div>    
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Correo electrónico</label>
+            <input name="correo_electronico" type="text" class="form-control" id="recipient-name">
+          </div>    
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Teléfono</label>
+            <input name="telefono" type="text" class="form-control" id="recipient-name">
+          </div>    
+          <div class="modal-footer">        
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>  
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<!-- Modal of create producto o servicio-->
+<div class="modal fade" id="ModalCreatePS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo producto o servicio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Introduce la siguiente información para dar de alta al nuevo automovil
+        <form action="", method="POST">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Nombre</label>
+            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
+          </div>    
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Cantidad</label>
+            <input name="cantidad" type="text" class="form-control" id="recipient-name">
+          </div>    
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Tipo</label>
+            <select id="inputState" class="form-control">
+              <option selected>Seleccionar el tipo de producto o servicio</option>
+              <option>Herramieenta</option>
+              <option>Servicio</option>
+              <option>Producto</option>
+              <option>Material</option>
+            </select>
+          </div>    
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Precio</label>
+            <input name="precio" type="text" class="form-control" id="recipient-name">
+          </div>   
+          <div class="modal-footer">        
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>  
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/menu_facturas.js"></script>
 {% endblock %}
