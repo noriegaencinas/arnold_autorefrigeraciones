@@ -8,5 +8,69 @@
 
 {% block content %}
 <!-- Agregar dentro de este bloque el codigo del menu automovil-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 text-end mb-3">
+      <button class="btn btn-primary" type="button">Imprimir
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+          <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1"/>
+          <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+        </svg>
+      </button>
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Cliente</label>
+      <input type="text" class="form-control" placeholder="Seleccione un cliente">
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Teléfono</label>
+      <input type="text" class="form-control" placeholder="Telefono" disabled>
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Email</label>
+      <input type="text" class="form-control" placeholder="Email" disabled>
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Vendedor</label>
+      <input type="text" class="form-control" placeholder="Seleccione un vendedor">
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Fecha</label>
+      <input type="text" class="form-control" placeholder="Fecha" disabled>
+    </div>
+    <div class="col-sm-4 mb-2">
+      <label for="nombre_menu" class="form-label">Pago</label>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Seleccionar tipo de pago
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Efectivo</a></li>
+          <li><a class="dropdown-item" href="#">Cheque</a></li>
+          <li><a class="dropdown-item" href="#">Transferencia bancaria</a></li>
+          <li><a class="dropdown-item" href="#">Crédito</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 text-end mt-3">
+    <button class="btn btn-primary" type="button">Nuevo producto o servicio
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+      </svg>
+    </button>
+    <button class="btn btn-primary" type="button">Nuevo cliente
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+      </svg>
+    </button>
+    <button class="btn btn-primary" type="button">Agregar producto o servicio
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+      </svg>
+    </button>    
 
+  </div>    
+</div>
 {% endblock %}
