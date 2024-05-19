@@ -1,0 +1,5 @@
+.bg-custom,
+.bg-custom th,
+.bg-custom td {
+    background-color: #DEE3FF  !important;
+}

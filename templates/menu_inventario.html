@@ -2,13 +2,7 @@
 
 {% block styling %}
   {{ super() }}
-  <style>
-    .bg-custom,
-    .bg-custom th,
-    .bg-custom td {
-      background-color: #DEE3FF  !important;
-    }
-  </style>
+  <link rel="stylesheet" href="/static/css/styles.css">
 {% endblock %}
 
 {% block nombre_menu %}Gestion de inventario{% endblock%} 
@@ -45,7 +39,7 @@
             <th scope="col">Acciones</th>         
           </tr>
         </thead>
-        <tbody class="bg-custom">
+        <tbody>
           {% for producto in data[0] %}
             <tr>
               <td>{{producto.id_inventario}}</td>

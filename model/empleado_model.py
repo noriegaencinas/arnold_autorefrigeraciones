@@ -56,14 +56,15 @@ def actualizar_empleado_db(id_empleado, nombre_completo, cargo, fecha_contrataci
 
 def select_empleado_by_filter_db(filtro):
     limit=10    
+    activo = 1
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))
+        c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%' AND activo = ?", (filtro, activo))
         rows = c.fetchall()        
 
         # Get total number of records
-        c.execute("SELECT count(id_empleado) FROM empleados WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))        
+        c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%' AND activo = ?", (filtro, activo))
         count = c.fetchall()[0][0]
         total_pages = ceil(count / limit)
 
