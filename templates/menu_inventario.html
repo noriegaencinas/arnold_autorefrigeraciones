@@ -3,8 +3,10 @@
 {% block styling %}
   {{ super() }}
   <style>
-    .bg-custom {
-      background-color: #DEE3FF;
+    .bg-custom,
+    .bg-custom th,
+    .bg-custom td {
+      background-color: #DEE3FF  !important;
     }
   </style>
 {% endblock %}
@@ -30,7 +32,7 @@
         </div>
       </nav>    
     <div class="table-responsive bg-custom">
-      <table class="table table-hover bg-custom" id="tabla_inventario">
+      <table class="table table-hover" id="tabla_inventario">
         <thead class="thead-dark">
           <tr>            
             <th scope="col">#</th>
