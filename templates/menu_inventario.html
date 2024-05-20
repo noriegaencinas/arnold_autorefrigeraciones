@@ -3,6 +3,12 @@
 {% block styling %}
   {{ super() }}
   <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    .card-color {
+      background-color: #DEE3FF;
+      border: 1px solid #808080;
+    }
+  </style>
 {% endblock %}
 
 {% block nombre_menu %}Gestion de inventario{% endblock%} 
@@ -15,7 +21,7 @@
         <div class="container-fluid">
           <form class="d-flex" role="search", action="{{url_for('select_producto_by_filter')}}", method="POST">
             <input class="form-control me-2 col-lg-3" type="search" placeholder="Producto" aria-label="Search" name="filtro">
-            <button class="btn btn-outline-success col-lg-3" type="submit">Buscar</button>
+            <button class="btn btn-success col-lg-3" type="submit">Buscar</button>
           </form>
           <button type="button" class="btn btn-primary col-lg-3" data-bs-toggle="modal" data-bs-target="#ModalCreateProducto">      
             Agregar producto
@@ -80,7 +86,8 @@
                         </div>
                         <div class="mb-1">
                             <label for="recipient-name" class="col-form-label">Cantidad</label>
-                            <input name="cantidad" type="text" class="form-control" id="recipient-name" value="{{ producto.Cantidad }}">
+                            <input name="cantidad" type="number" class="form-control only-numbers" id="recipient-name" value="{{ producto.Cantidad }}">
+
                           </div>
                           <div class="mb-1">
                             <label for="recipient-name" class="col-form-label">Tipo</label>
@@ -153,7 +160,7 @@
         </nav>
       </div> 
       <div class="col-lg-4 col-sm-6 col-10 child">
-        <div class="card" style="width: 18rem;" id="details_card">
+        <div class="card card-color" style="width: 18rem;" id="details_card">
           <img src="/static/icons/person-square.svg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="row">
@@ -226,4 +233,5 @@
     </div>
   </div>
 </div>
+<script src="/static/js/scripts.js"></script>
 {% endblock %}
