@@ -5,13 +5,18 @@
 }
 
 .btn-primary{
-    background-color: #6046FF;
-    border: 1px solid #5308F3;
-    color:#FFFFFF;
-  }
+  background-color: #6046FF;
+  border: 1px solid #5308F3;
+  color:#FFFFFF;
+}
 
-  .btn-primary:hover{
-    background-color: #5308F3;
-    border: 1px solid #5308F3;
-    color:#FFFFFF;
-  } 
+.btn-primary:hover{
+  background-color: #5308F3;
+  border: 1px solid #5308F3;
+  color:#FFFFFF;
+} 
+
+.card-color {
+  background-color: #DEE3FF;
+  border: 1px solid #808080;
+}

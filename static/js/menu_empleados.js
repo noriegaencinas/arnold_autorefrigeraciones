@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
               <p class="card-text">${nombre}</p>
               <h5 class="card-title">Cargo</h5>
               <p class="card-text">${cargo}</p>
-            </div>
-            <div class="col">
               <h5 class="card-title">Número</h5>
               <p class="card-text">${numero}</p>
               <h5 class="card-title">Correo electrónico</h5>
