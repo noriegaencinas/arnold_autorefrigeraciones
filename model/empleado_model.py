@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from math import ceil
 
-def select_empleados_db(page):
+def select_automovil_db(page):
     limit=10
     start = limit * (page - 1)
     activo = 1
@@ -19,7 +19,7 @@ def select_empleados_db(page):
             insertObject.append(dict(zip(columnNames, record)))    
 
         # Get total number of records
-        count = contar_empleados_activos_db()  
+        count = contar_automovil_activos_db()  
         total_pages = ceil(count / limit) 
 
         conn.close()
@@ -28,7 +28,7 @@ def select_empleados_db(page):
         print("Error:", e)
         return None
 
-def contar_empleados_activos_db():
+def contar_automovil_activos_db():
     activo = 1
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")

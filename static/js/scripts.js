@@ -46,3 +46,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
         input.form.addEventListener('submit', validateNotEmpty); // Agrega la validación al evento submit del formulario asociado
     });
 });
+
+
+// Helps to intialize the datepicker
+$(document).ready(function(){
+    // Inicializar el datepicker
+    $('#recipient-date').datepicker({
+        format: 'dd-mm-yyyy', // Formato de fecha
+        autoclose: true, // Cerrar automáticamente después de seleccionar una fecha
+        todayHighlight: true // Resaltar la fecha actual
+    });
+  
+    // Obtener la fecha actual y formatearla en el formato adecuado (DD-MM-YYYY)
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+    var yyyy = today.getFullYear();
+    today = dd + '-' + mm + '-' + yyyy;
+  
+    // Establecer la fecha actual como el valor predeterminado del input
+    $('#recipient-date').val(today);
+  });

@@ -2,7 +2,8 @@
 
 {% block styling %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/css/styles.css">  
+  <link rel="stylesheet" href="/static/css/styles.css">    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block nombre_menu %}Gestion de empleados{% endblock%} 
@@ -34,7 +35,12 @@
             <th scope="col">Cargo</th>            
             <th scope="col">Numero</th>
             <th scope="col">Correo</th>
-            <th scope="col">Acciones</th>            
+            <th scope="col">Acciones</th>                   
+            <!-- Aqui los th ocultos -->            
+            <th scope="col" class="d-none">fecha_contratacion</th>
+            <th scope="col" class="d-none">horario_trabajo</th>
+            <th scope="col" class="d-none">salario</th>
+            <th scope="col" class="d-none">automovil_asignado</th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +50,12 @@
               <td>{{ empleado.nombre_completo }}</td>
               <td>{{ empleado.cargo }}</td>            
               <td>{{ empleado.numero_contacto }}</td>            
-              <td>{{ empleado.correo_electronico }}</td>        
+              <td>{{ empleado.correo_electronico }}</td>
+              <!-- Aqui los td ocultos -->
+              <td class="d-none">{{ empleado.fecha_contratacion }}</td>
+              <td class="d-none">{{ empleado.horario_trabajo }}</td>
+              <td class="d-none">{{ empleado.salario }}</td>
+              <td class="d-none">{{ empleado.automovil_asignado }}</td>
               <td>       
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal_update{{empleado.id_empleado}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -72,31 +83,31 @@
                     <form action="{{url_for('actualizar_empleado', id_empleado=empleado.id_empleado)}}", method="POST">
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Nombre completo</label>
-                        <input name="nombre_completo" type="text" class="form-control" id="recipient-name" value="{{ empleado.nombre_completo }}">
+                        <input name="nombre_completo" type="text" class="form-control" value="{{ empleado.nombre_completo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="message-text" class="col-form-label">Cargo</label>
-                        <input name="cargo" type="text" class="form-control" id="recipient-name" value="{{ empleado.cargo }}">
+                        <input name="cargo" type="text" class="form-control" value="{{ empleado.cargo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
-                        <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name" value="{{ empleado.fecha_contratacion }}">
+                        <input name="fecha_contratacion" type="date" class="form-control" id="recipient-date" value="{{ empleado.fecha_contratacion }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
-                        <input name="horario_trabajo" type="text" class="form-control" id="recipient-name" value="{{ empleado.horario_trabajo }}">
+                        <input name="horario_trabajo" type="text" class="form-control" value="{{ empleado.horario_trabajo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Número</label>
-                        <input name="numero_contacto" type="text" class="form-control" id="recipient-name" value="{{ empleado.numero_contacto }}">
+                        <input name="numero_contacto" type="text" class="form-control" value="{{ empleado.numero_contacto }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Correo electrónico</label>
-                        <input name="correo_electronico" type="text" class="form-control" id="recipient-name" value="{{ empleado.correo_electronico }}">
+                        <input name="correo_electronico" type="text" class="form-control" value="{{ empleado.correo_electronico }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Salario:</label>
-                        <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado.salario }}">
+                        <input name="salario" type="number" class="form-control" value="{{ empleado.salario }}" required>
                       </div>      
                       <div class="modal-footer">        
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -138,22 +149,24 @@
       <!-- this is the navbar for the employees -->
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
+          <!--Lo que recibe es el total de paginas-->          
           <li class="page-item disabled">
             <a class="page-link">Anterior</a>
-          </li>          
+          </li>                    
           {% for i in range(data[1]) %}
-            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i+1)}}">{{i+1}}</a></li>          
+            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i+1)}}">{{i+1}}</a></li>                    
           {% endfor %}
           <li class="page-item">
             <a class="page-link" href="#">Siguiente</a>
           </li>
+          
         </ul>
       </nav>
     </div>
-
+    <!-- this is the card for the employee details -->
     <div class="col-lg-4 child">
       <div class="card card-color" style="width: 18rem;" id="details_card">
-        <img src="/static/icons/person-square.svg" class="card-img-top" alt="...">
+        <img src="/static/icons/person-square.svg" class="card-img-top my-3 mx-auto" style="max-width: 80%;" alt="...">
         <div class="card-body">
           <div class="row">
             <div class="col">
@@ -212,31 +225,31 @@
         <form action="{{ url_for('crear_empleado') }}", method="POST">
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Nombre completo</label>
-            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
+            <input name="nombre_completo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="message-text" class="col-form-label">Cargo</label>
-            <input name="cargo" type="text" class="form-control" id="recipient-name">
+            <input name="cargo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
-            <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name">
+            <input name="fecha_contratacion" type="date" class="form-control" id="recipient-date" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
-            <input name="horario_trabajo" type="text" class="form-control" id="recipient-name">
+            <input name="horario_trabajo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Número</label>
-            <input name="numero_contacto" type="text" class="form-control" id="recipient-name">
+            <input name="numero_contacto" type="number" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Correo electrónico</label>
-            <input name="correo_electronico" type="text" class="form-control" id="recipient-name">
+            <input name="correo_electronico" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Salario:</label>
-            <input name="salario" type="text" class="form-control" id="recipient-name">
+            <input name="salario" type="number" class="form-control" required>
           </div>      
           <div class="modal-footer">        
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -262,4 +275,7 @@
 </div>
 
 <script src="/static/js/menu_empleados.js"></script>
+<!--Para el date-picker-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 {% endblock %}

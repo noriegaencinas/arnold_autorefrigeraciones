@@ -14,6 +14,18 @@ def menu_empleados(page=1):
     rows = select_empleados_db(page)
     return render_template('menu_empleados.html', data=rows)
 
+@app.route("/menu/empleado/buscar", methods=['GET', 'POST'])
+@login_required
+def select_empleado_by_filter():
+    if request.method == 'POST':
+        filtro = request.form['filtro']
+        rows = select_empleado_by_filter_db(filtro)
+        return render_template('menu_empleados.html', data=rows)
+    return redirect(url_for('menu_empleados'))
+
+
+# These routes are for the CRUD operations of the employees
+
 @app.route("/menu/empleados/eliminar/<int:id_empleado>", methods=['GET', 'POST'])
 @login_required
 def eliminar_empleado(id_empleado):
@@ -55,11 +67,3 @@ def actualizar_empleado(id_empleado):
         return redirect(url_for('menu_empleados'))
     return redirect(url_for('menu_empleados'))
 
-@app.route("/menu/empleado/buscar", methods=['GET', 'POST'])
-@login_required
-def select_empleado_by_filter():
-    if request.method == 'POST':
-        filtro = request.form['filtro']
-        rows = select_empleado_by_filter_db(filtro)
-        return render_template('menu_empleados.html', data=rows)
-    return redirect(url_for('menu_empleados'))
