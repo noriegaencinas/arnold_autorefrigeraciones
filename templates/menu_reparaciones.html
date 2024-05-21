@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <form class="d-flex" role="search", action="{{url_for('select_reparacion_by_filter')}}", method="POST">
         <input class="form-control me-2 col-lg-3" type="search" placeholder="Automovil" aria-label="Search" name="filtro" required>
-        <button class="btn btn-outline-success col-lg-3" type="submit">Buscar</button>
+        <button class="btn btn-success col-lg-3" type="submit">Buscar</button>
       </form>
     </div>
   </nav>    
@@ -62,23 +62,79 @@
         </tr>
         <!-- Modal of update automovil-->
         <div class="modal fade" id="modal_update{{automovil.id_automovil}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar la información del automovil</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                Modifica los campos necesarios
-                <form action="{{url_for('actualizar_automovil', id_automovil=automovil.id_automovil)}}", method="POST">
-                  <div class="mb-1">
-                    <label for="recipient-name" class="col-form-label">Nombre completo</label>
-                    <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.nombre_propietario }}" required>
+                Vuelve a activar el automovil con la siguiente información
+                <form action="{{url_for('activar_automovil', id_automovil=automovil.id_automovil)}}", method="POST">
+                  <div class="container-parent">
+                    <div class="row">    
+                      <div class="col-lg-6 child">
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Marca</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.marca }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Modelo</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.modelo }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Placa</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.placa }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Notas</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.notas }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Nombre completo</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.nombre_propietario }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Número de contacto</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.telefono_propietario }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Correo electrónico</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.correo_propietario }}" disabled>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 child">
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Motivo de ingreso</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.motivo_ingreso }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Fecha de ingreso</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.fecha_ingreso }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Fecha de salida</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.fecha_egreso }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Costo mano de obra</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.costo_mano_obra }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Piezas usadas</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.piezas_usadas }}" disabled>
+                        </div>
+                        <div class="mb-1">
+                          <label for="recipient-name" class="col-form-label">Costo total</label>
+                          <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.costo_total }}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">        
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-success">Activar</button> 
+                    </div>
                   </div>
-                  <div class="modal-footer">        
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>  
                 </form>
               </div>      
             </div>

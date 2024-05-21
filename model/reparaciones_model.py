@@ -62,3 +62,17 @@ def select_automovil_by_filter_db(filtro):
         print("Error:", e)
         return None
    
+def activar_automovil_db(id_automovil):
+    activar = 0 
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("UPDATE automoviles SET alta = ? WHERE id_automovil = ?", (activar, id_automovil))
+        conn.commit()
+        conn.close()
+    except sqlite3.Error as e:
+        print("Error:", e)
+        return None
+    finally:
+        if conn:
+            conn.close()
