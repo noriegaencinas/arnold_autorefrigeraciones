@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
   
     rows.forEach(row => {
       row.addEventListener('click', function () {
+
         // Extract information from the clicked row
+        const id_automovil = row.cells[0].textContent;
+        const modalId = `#modal_alta${id_automovil}`;
         const modelo = row.cells[1].textContent;
         const placa = row.cells[2].textContent;
         const nombre_propietario = row.cells[3].textContent;
@@ -37,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
               <h5 class="card-title">Celular de contacto</h5>
               <p class="card-text">${telefono_propietario}</p>
               <h5 class="card-title">Correo electrónico</h5>
-              <p class="card-text">${correo_propietario}</p>              
+              <p class="card-text">${correo_propietario}</p>         
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="${modalId}">Dar de alta</button> 
             </div>
           </div>
         </div>

@@ -69,3 +69,23 @@ def actualizar_automovil(id_automovil):
         return redirect(url_for('menu_automoviles'))
     return redirect(url_for('menu_automoviles'))
 
+@app.route("/menu/automoviles/alta/<int:id_automovil>", methods=['GET', 'POST'])
+@login_required
+def alta_automovil(id_automovil):
+    if request.method == 'POST':
+        marca = request.form['marca']
+        modelo = request.form['modelo']
+        placa = request.form['placa']
+        notas = request.form['notas']
+        nombre_propietario = request.form['nombre_propietario']
+        telefono_propietario = request.form['telefono_propietario']
+        correo_propietario = request.form['correo_propietario']
+        motivo_ingreso = request.form['motivo_ingreso']
+        fecha_ingreso = request.form['fecha_ingreso']
+        fecha_egreso = request.form['fecha_egreso']
+        costo_mano_obra = request.form['costo_mano_obra']
+        piezas_usadas = request.form['piezas_usadas']
+        costo_total = request.form['costo_total']        
+        alta_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, fecha_egreso, costo_mano_obra, piezas_usadas, costo_total, id_automovil)
+        return redirect(url_for('menu_automoviles'))
+    return redirect(url_for('menu_automoviles'))

@@ -6,10 +6,11 @@ def select_automovil_db(page):
     limit=10
     start = limit * (page - 1)
     activo = 1
+    alta = 0
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM automoviles WHERE activo = ? LIMIT ?, ?", (activo, start, limit))
+        c.execute("SELECT * FROM automoviles WHERE activo = ? AND alta = ? LIMIT ?, ?", (activo, alta, start, limit))
         myresult = c.fetchall()
 
         # Convertir los datos a diccionario
@@ -30,11 +31,12 @@ def select_automovil_db(page):
 
 def contar_automoviles_activos_db():
     activo = 1
+    alta = 0
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         # Get total number of records
-        c.execute("SELECT count(id_automovil) FROM automoviles WHERE activo = ?", (activo, ))
+        c.execute("SELECT count(id_automovil) FROM automoviles WHERE activo = ? AND alta = ?", (activo, alta))
         count = c.fetchall()[0][0]        
         return int(count)
     except Exception as e:
@@ -69,6 +71,17 @@ def actualizar_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso,
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         c.execute("UPDATE automoviles SET marca = ?, modelo = ?, placa = ?, motivo_ingreso = ?, fecha_ingreso = ?, notas = ?, nombre_propietario = ?, telefono_propietario = ?, correo_propietario = ? WHERE id_automovil = ?", (marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, id_automovil))
+        conn.commit()
+        conn.close()
+    except sqlite3.Error as e:
+        print("Error:", e)
+
+def alta_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, fecha_egreso, costo_mano_obra, piezas_usadas, costo_total, id_automovil):
+    alta = 1
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        c.execute("UPDATE automoviles SET marca = ?, modelo = ?, placa = ?, motivo_ingreso = ?, fecha_ingreso = ?, notas = ?, nombre_propietario = ?, telefono_propietario = ?, correo_propietario = ?, fecha_egreso = ?, costo_mano_obra = ?, piezas_usadas = ?, costo_total = ?, alta = ? WHERE id_automovil = ?", (marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, fecha_egreso, costo_mano_obra, piezas_usadas, costo_total, alta, id_automovil))
         conn.commit()
         conn.close()
     except sqlite3.Error as e:
