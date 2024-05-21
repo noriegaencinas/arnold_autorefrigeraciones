@@ -30,8 +30,7 @@
         <th scope="col">Fecha de ingreso</th>                   
         <th scope="col">Notas</th> 
         <th scope="col">Acciones</th>
-        <!-- Aqui los th ocultos -->            
-        <th scope="col" class="d-none">fecha_contratacion</th>
+        <!-- Aqui los th ocultos -->                    
       </tr>
     </thead>
     <tbody>
@@ -174,38 +173,13 @@
         <a class="page-link">Anterior</a>
       </li>                    
       {% for i in range(data[1]) %}
-        <li class="page-item"><a class="page-link" href="{{url_for('menu_automoviles', page=i+1)}}">{{i+1}}</a></li>                    
+        <li class="page-item"><a class="page-link" href="{{url_for('registro_reparaciones', page=i+1)}}">{{i+1}}</a></li>                    
       {% endfor %}
       <li class="page-item">
         <a class="page-link" href="#">Siguiente</a>
       </li>
     </ul>
   </nav>
-</div>
-
-<!-- Modal of create automovil-->
-<div class="modal fade" id="ModalCreateAutomovil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo automovil</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Introduce la siguiente información para dar de alta al nuevo automovil
-        <form action="{{ url_for('crear_automovil') }}", method="POST">
-          <div class="mb-1">
-            <label for="recipient-name" class="col-form-label">Nombre completo</label>
-            <input name="nombre_completo" type="text" class="form-control" required>
-          </div>  
-          <div class="modal-footer">        
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
-          </div>  
-        </form>
-      </div>      
-    </div>
-  </div>
 </div>
 
 <div class="toast-container position-fixed bottom-0 end-0 p-3">

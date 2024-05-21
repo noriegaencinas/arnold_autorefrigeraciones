@@ -55,7 +55,7 @@
       <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
       <script type="application/json" id="transacciones-data">
-        {{ data[0] | tojson }}
+        {{ data[2] | tojson }}
       </script>
 
       <script>
@@ -67,7 +67,7 @@
 
               // Extraer etiquetas y datos de transaccionesData
               const labels = transaccionesData.map(item => item.fecha_transaccion);  // Usar 'fecha_transaccion'
-              const data = transaccionesData.map(item => item.monto);  // Usar 'monto'
+              const data = transaccionesData.map(item => item.total_transacciones);  // Usar 'total_transacciones'
 
               const myChart = new Chart(ctx, {
                   type: 'line',
@@ -96,7 +96,7 @@
           });
       </script>
 
-      <h2>Section title</h2>
+      <h2>Esta semana</h2>
       <div class="table-responsive small bg-custom">
         <table class="table table-hover" id="tabla_empleados">
           <thead class="thead-dark">

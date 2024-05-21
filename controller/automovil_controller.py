@@ -3,6 +3,7 @@ from main import app
 from controller.login_controller import *
 
 from model.automovil_model import *
+from model.financiero_model import *
 
 # Menu empelados
 
@@ -87,5 +88,6 @@ def alta_automovil(id_automovil):
         piezas_usadas = request.form['piezas_usadas']
         costo_total = request.form['costo_total']        
         alta_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, fecha_egreso, costo_mano_obra, piezas_usadas, costo_total, id_automovil)
+        create_transaccion_db("Venta", "Reparacion", costo_total, "venta", "Efectivo")
         return redirect(url_for('menu_automoviles'))
     return redirect(url_for('menu_automoviles'))
