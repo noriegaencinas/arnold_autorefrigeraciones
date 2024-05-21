@@ -23,7 +23,7 @@ def crear_producto():
         descripcion = request.form['descripcion']
         precio_compra = request.form['precio_compra']
         precio_venta = request.form['precio_venta']
-        crear_producto_db( nombre, cantidad, precio_compra, tipo, descripcion, precio_venta)
+        crear_producto_db(nombre, cantidad, precio_compra, tipo, descripcion, precio_venta)
         return redirect(url_for('menu_inventario'))
     return redirect(url_for('menu_inventario'))
 

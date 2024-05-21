@@ -10,7 +10,7 @@ def select_inventario_db(page):
     try:
         with sqlite3.connect("instance/arnold_autorefrigeraciones.db") as conn:
             c = conn.cursor()
-            c.execute("SELECT * FROM inventario WHERE activo = ? LIMIT ?, ?", (activo, start, limit))
+            c.execute("SELECT * FROM inventario WHERE Activo = ? LIMIT ?, ?", (activo, start, limit))
             myresult = c.fetchall()
 
             # Convertir los datos a diccionario
@@ -33,7 +33,7 @@ def contar_activos_inventario_db():
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         # Get total number of records
-        c.execute("SELECT count(id_inventario) FROM inventario WHERE activo = ?", (activo, ))
+        c.execute("SELECT count(id_inventario) FROM inventario WHERE Activo = ?", (activo, ))
         count = c.fetchall()[0][0]        
         return count
     except Exception as e:
