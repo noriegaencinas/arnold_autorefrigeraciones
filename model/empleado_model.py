@@ -93,6 +93,3 @@ def select_empleado_by_filter_db(filtro):
         print("Error:", e)
         return None
    
-test = False
-if test:
-    select_empleado_by_filter_db('javier')

@@ -105,7 +105,3 @@ def select_automovil_by_filter_db(filtro):
     except sqlite3.Error as e:
         print("Error:", e)
         return None
-   
-test = False
-if test:
-    select_automovil_by_filter_db('javier')
