@@ -23,9 +23,6 @@ def select_automovil_db(page):
         count = contar_automoviles_inactivos_db()  
         total_pages = ceil(int(count) / int(limit)) 
 
-        print(insertObject)
-        print("Total records: ", count)
-        print("Total pages: ", total_pages)
         conn.close()
         return [insertObject, total_pages]
     except sqlite3.Error as e:
@@ -81,7 +78,3 @@ def activar_automovil_db(id_automovil):
     finally:
         if conn:
             conn.close()
-
-test = True
-if test:
-    select_automovil_db(1)
