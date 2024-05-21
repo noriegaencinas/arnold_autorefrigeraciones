@@ -22,3 +22,10 @@ def select_reparacion_by_filter():
         rows = select_automovil_by_filter_db(filtro)
         return render_template('menu_reparaciones.html', data=rows)
     return redirect(url_for('registro_reparaciones'))
+
+@app.route("/menu/reparaciones/activar/<int:id_automovil>", methods=['GET', 'POST'])
+def activar_automovil(id_automovil):
+    if request.method == 'POST':
+        activar_automovil_db(id_automovil)
+        return redirect(url_for('registro_reparaciones'))
+    return redirect(url_for('registro_reparaciones'))
