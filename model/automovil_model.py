@@ -48,27 +48,27 @@ def eliminar_automovil_db(id_automovil):
     try:        
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("UPDATE id_automovil SET activo = ? WHERE id_automovil = ?", (inactivo, id_automovil))
+        c.execute("UPDATE automoviles SET activo = ? WHERE id_automovil = ?", (inactivo, id_automovil))
         conn.commit()
         conn.close()
     except sqlite3.Error as e:
         print("Error:", e)
 
-def agregar_automovil_db(motivo_ingreso, fecha_ingreso, notas, estado, modelo, placa, marca, nombre_propietario, telefono_propietario, correo_propietario):
+def agregar_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario):
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("INSERT INTO automoviles (motivo_ingreso, fecha_ingreso, notas, estado, modelo, placa, marca, nombre_propietario, telefono_propietario, correo_propietario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (motivo_ingreso, fecha_ingreso, notas, estado, modelo, placa, marca, nombre_propietario, telefono_propietario, correo_propietario))
+        c.execute("INSERT INTO automoviles (marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario))
         conn.commit()
         conn.close()
     except sqlite3.Error as e:
         print("Error:", e)
 
-def actualizar_automovil_db(motivo_ingreso, fecha_ingreso, notas, estado, modelo, placa, marca, nombre_propietario, telefono_propietario, correo_propietario, id_automovil):
+def actualizar_automovil_db(marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, id_automovil):
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("UPDATE automoviles SET motivo_ingreso = ?, fecha_ingreso = ?, notas = ?, estado = ?, modelo = ?, placa = ?, marca = ?, nombre_propietario = ?, telefono_propietario = ?, correo_propietario = ? WHERE id_automovil = ?", (motivo_ingreso, fecha_ingreso, notas, estado, modelo, placa, marca, nombre_propietario, telefono_propietario, correo_propietario, id_automovil))
+        c.execute("UPDATE automoviles SET marca = ?, modelo = ?, placa = ?, motivo_ingreso = ?, fecha_ingreso = ?, notas = ?, nombre_propietario = ?, telefono_propietario = ?, correo_propietario = ? WHERE id_automovil = ?", (marca, modelo, placa, motivo_ingreso, fecha_ingreso, notas, nombre_propietario, telefono_propietario, correo_propietario, id_automovil))
         conn.commit()
         conn.close()
     except sqlite3.Error as e:
@@ -81,10 +81,10 @@ def select_automovil_by_filter_db(filtro):
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         conn.row_factory = sqlite3.Row  # This allows you to access rows as dictionaries        
         c = conn.cursor()
-        c.execute("SELECT * FROM automoviles WHERE nombre_completo LIKE '%' || ? || '%' AND activo = ?", (filtro, activo))
+        c.execute("SELECT * FROM automoviles WHERE marca LIKE '%' || ? || '%' OR modelo LIKE '%' || ? || '%' OR placa LIKE '%' || ? || '%' OR motivo_ingreso LIKE '%' || ? || '%' OR fecha_ingreso LIKE '%' || ? || '%' OR notas LIKE '%' || ? || '%' OR nombre_propietario LIKE '%' || ? || '%' OR telefono_propietario LIKE '%' || ? || '%' OR correo_propietario LIKE '%' || ? || '%' AND activo = ?", (filtro, filtro, filtro, filtro, filtro, filtro, filtro, filtro, filtro, activo))
         rows = [dict(row) for row in c.fetchall()]  # Convert rows to dictionaries        
         # Get total number of records
-        c.execute("SELECT count(id_automovil) FROM automoviles WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))        
+        c.execute("SELECT count(id_automovil) FROM automoviles WHERE marca LIKE '%' || ? || '%' OR modelo LIKE '%' || ? || '%' OR placa LIKE '%' || ? || '%' OR motivo_ingreso LIKE '%' || ? || '%' OR fecha_ingreso LIKE '%' || ? || '%' OR notas LIKE '%' || ? || '%' OR nombre_propietario LIKE '%' || ? || '%' OR telefono_propietario LIKE '%' || ? || '%' OR correo_propietario LIKE '%' || ? || '%' AND activo = ?", (filtro, filtro, filtro, filtro, filtro, filtro, filtro, filtro, filtro, activo))
         count = c.fetchall()[0][0]
         total_pages = ceil(count / limit)
         conn.close()
