@@ -79,14 +79,16 @@ def select_producto_by_filter_db(filtro):
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         conn.row_factory = sqlite3.Row  # This allows you to access rows as dictionaries
         c = conn.cursor()
-        c.execute("SELECT * FROM inventario WHERE Nombre LIKE '%' || ? || '%'", (filtro,))
+
+        c.execute("SELECT * FROM inventario WHERE Nombre LIKE '%' || ? || '%' OR Tipo LIKE '%' || ? || '%' OR Descripcion LIKE '%' || ? || '%'", (filtro, filtro, filtro))
         rows = [dict(row) for row in c.fetchall()]  # Convert rows to dictionaries
-        print(rows)
+
         # Get total number of records
-        c.execute("SELECT count(id_inventario) FROM inventario WHERE Nombre LIKE '%' || ? || '%'", (filtro,))        
+        c.execute("SELECT count(id_inventario) FROM inventario WHERE Nombre LIKE '%' || ? || '%' OR Tipo LIKE '%' || ? || '%' OR Descripcion LIKE '%' || ? || '%'", (filtro, filtro, filtro))
         count = c.fetchall()[0][0]
         total_pages = ceil(count / limit)
         conn.close()
+
         return [rows, total_pages]
     except sqlite3.Error as e:
         print("Error:", e)

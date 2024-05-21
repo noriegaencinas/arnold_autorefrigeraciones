@@ -7,7 +7,7 @@
 
 {% block nombre_menu %}Gestion de inventario{% endblock%} 
 {% block content %}
-<!-- Agregar dentro de este bloque el codigo del menu empleados-->
+<!-- Agregar dentro de este bloque el codigo del menu inventario-->
 <div class="container parent">
   <div class="row">    
     <div class="col-lg-8 col-sm-12 col-10 child">                  
@@ -63,7 +63,7 @@
                   </button>                
                 </td>            
               </tr>
-              <!-- Modal of update automovil-->
+              <!-- Modal of update inventario-->
               <div class="modal fade" id="modal_update{{producto.id_inventario}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -76,16 +76,16 @@
                       <form action="{{url_for('actualizar_producto', id_inventario=producto.id_inventario)}}", method="POST">
                         <div class="mb-1">
                           <label for="recipient-name" class="col-form-label">Nombre</label>
-                          <input name="nombre" type="text" class="form-control" id="recipient-name" value="{{ producto.Nombre }}">
+                          <input name="nombre" type="text" class="form-control" id="recipient-name" value="{{ producto.Nombre }}" required>
                         </div>
                         <div class="mb-1">
                             <label for="recipient-name" class="col-form-label">Cantidad</label>
-                            <input name="cantidad" type="number" class="form-control only-numbers" id="recipient-name" value="{{ producto.Cantidad }}">
+                            <input name="cantidad" type="number" class="form-control only-numbers" id="recipient-name" value="{{ producto.Cantidad }}" required>
 
                           </div>
                           <div class="mb-1">
                             <label for="recipient-name" class="col-form-label">Tipo</label>
-                            <input name="tipo" type="text" class="form-control" id="recipient-name" value="{{ producto.Tipo }}">
+                            <input name="tipo" type="text" class="form-control" id="recipient-name" value="{{ producto.Tipo }}" required>
                           </div>
                           <div class="mb-1">
                             <label for="recipient-name" class="col-form-label">Descripcion</label>
@@ -108,7 +108,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Modal of delete automovil-->
+              <!-- Modal of delete inventario-->
               <div class="modal fade" id="modal_delete{{producto.id_inventario}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -215,15 +215,15 @@
         <form action="{{ url_for('crear_producto') }}", method="POST">
             <div class="mb-1">
                 <label for="recipient-name" class="col-form-label">Nombre</label>
-                <input name="nombre" type="text" class="form-control" id="recipient-name">
+                <input name="nombre" type="text" class="form-control" id="recipient-name" required>
               </div>
               <div class="mb-1">
                   <label for="recipient-name" class="col-form-label">Cantidad</label>
-                  <input name="cantidad" type="text" class="form-control" id="recipient-name">
+                  <input name="cantidad" type="number" class="form-control" id="recipient-name" required>
                 </div>
                 <div class="mb-1">
                   <label for="recipient-name" class="col-form-label">Tipo</label>
-                  <input name="tipo" type="text" class="form-control" id="recipient-name">
+                  <input name="tipo" type="text" class="form-control" id="recipient-name" required>
                 </div>
                 <div class="mb-1">
                   <label for="recipient-name" class="col-form-label">Descripcion</label>
@@ -231,11 +231,11 @@
                 </div>
                 <div class="mb-1">
                   <label for="recipient-name" class="col-form-label">Precio compra</label>
-                  <input name="precio_compra" type="text" class="form-control" id="recipient-name">
+                  <input name="precio_compra" type="number" class="form-control" id="recipient-name">
                 </div>
                 <div class="mb-1">
                   <label for="recipient-name" class="col-form-label">Precio venta</label>
-                  <input name="precio_venta" type="text" class="form-control" id="recipient-name">
+                  <input name="precio_venta" type="number" class="form-control" id="recipient-name">
                 </div> 
           <div class="modal-footer">        
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

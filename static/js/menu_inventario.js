@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const nombre = row.cells[1].textContent;        
         const tipo = row.cells[2].textContent;
         const descripcion = row.cells[3].textContent;
-        const cantidad = row.cells[3].textContent;
-        const precio_compra = row.cells[4].textContent;
-        const precio_venta = row.cells[5].textContent;        
+        const cantidad = row.cells[4].textContent;
+        const precio_compra = row.cells[5].textContent;
+        const precio_venta = row.cells[6].textContent;        
   
         // Update the content of the details card
         document.getElementById('details_card').innerHTML = `

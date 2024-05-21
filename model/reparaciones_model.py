@@ -6,10 +6,11 @@ def select_automovil_db(page):
     limit=10
     start = limit * (page - 1)
     alta = 1
+    inactivo = 1
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM automoviles WHERE alta = ? LIMIT ?, ?", (alta, start, limit))
+        c.execute("SELECT * FROM automoviles WHERE alta = ? AND activo = ? LIMIT ?, ?", (alta, inactivo, start, limit))
         myresult = c.fetchall()
 
         # Convertir los datos a diccionario
@@ -19,22 +20,26 @@ def select_automovil_db(page):
             insertObject.append(dict(zip(columnNames, record)))    
 
         # Get total number of records
-        count = contar_automoviles_inavtivos_db()  
+        count = contar_automoviles_inactivos_db()  
         total_pages = ceil(int(count) / int(limit)) 
 
+        print(insertObject)
+        print("Total records: ", count)
+        print("Total pages: ", total_pages)
         conn.close()
         return [insertObject, total_pages]
     except sqlite3.Error as e:
         print("Error:", e)
         return None
 
-def contar_automoviles_inavtivos_db():
+def contar_automoviles_inactivos_db():
     alta = 1
+    inactivo = 1
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         # Get total number of records
-        c.execute("SELECT count(id_automovil) FROM automoviles WHERE alta = ?", (alta, ))
+        c.execute("SELECT count(id_automovil) FROM automoviles WHERE alta = ? AND activo = ?", (alta, inactivo))
         count = c.fetchall()[0][0]        
         return int(count)
     except Exception as e:
@@ -76,3 +81,7 @@ def activar_automovil_db(id_automovil):
     finally:
         if conn:
             conn.close()
+
+test = True
+if test:
+    select_automovil_db(1)
