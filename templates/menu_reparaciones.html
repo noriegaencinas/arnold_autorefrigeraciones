@@ -2,55 +2,167 @@
 
 {% block styling %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="/static/css/styles.css">      
 {% endblock %}
 
-{% block nombre_menu %}Registro de reparaciones{% endblock %}
+{% block nombre_menu %}Lista de reparaciones{% endblock %}
 
 {% block content %}
-<!-- Agregar dentro de este bloque el codigo del menu empleados-->
-<section class="py-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Automóviles</h2>
-                <table id="automoviles-table" class="table table-hover">
-                    <thead>
-                        <tr>                            
-                            <th>ID</th>
-                            <th>Modelo</th>
-                            <th>Placas</th>
-                            <th>Nombre del Propietario</th>
-                            <th>Motivo de Ingreso</th>
-                            <th>Fecha de ingreso</th>
-                            <th>Fecha de egreso</th>
-                            <th>Notas</th>
-                            <th>Costo mano de obra</th>
-                            <th>Piezas usadas</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for reparacion in reparaciones %}
-                        <tr>
-                            <td>{{ reparacion[0] }}</td>
-                            <td>{{ reparacion[1] }}</td>
-                            <td>{{ reparacion[2] }}</td>
-                            <td>{{ reparacion[3] }}</td>
-                            <td>{{ reparacion[4] }}</td>
-                            <td>{{ reparacion[5] }}</td>
-                            <td>{{ reparacion[6] }}</td>
-                            <td>{{ reparacion[7] }}</td>
-                            <td>{{ reparacion[8] }}</td>
-                            <td>{{ reparacion[9] }}</td>
-                            <td>{{ reparacion[10] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
+<div class="container parent">           
+  <nav class="navbar">
+    <div class="container-fluid">
+      <form class="d-flex" role="search", action="{{url_for('select_reparacion_by_filter')}}", method="POST">
+        <input class="form-control me-2 col-lg-3" type="search" placeholder="Automovil" aria-label="Search" name="filtro" required>
+        <button class="btn btn-outline-success col-lg-3" type="submit">Buscar</button>
+      </form>
     </div>
-</section>
+  </nav>    
+<div class="table-responsive bg-custom">
+  <table class="table table-hover" id="tabla_automoviles">
+    <thead class="thead-dark">
+      <tr>            
+        <th scope="col">#</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Placa</th>            
+        <th scope="col">Nombre propietario</th>
+        <th scope="col">Motivo de ingreso</th>
+        <th scope="col">Fecha de ingreso</th>                   
+        <th scope="col">Notas</th> 
+        <th scope="col">Acciones</th>
+        <!-- Aqui los th ocultos -->            
+        <th scope="col" class="d-none">fecha_contratacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for automovil in data[0] %}
+        <tr>
+          <th>{{ automovil.id_automovil }}</th>
+          <th>{{ automovil.modelo }}</th>
+          <td>{{ automovil.placa}}</td>
+          <td>{{ automovil.nombre_propietario }}</td>            
+          <td>{{ automovil.motivo_ingreso }}</td>            
+          <td>{{ automovil.fecha_ingreso }}</td>
+          <td>{{ automovil.notas }}</td>
+          <!-- Aqui los td ocultos -->
+          <td class="d-none">a</td>
+          <td>       
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal_update{{automovil.id_automovil}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+              </svg>
+            </button>         
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete{{automovil.id_automovil}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+              </svg>
+            </button>                
+          </td>            
+        </tr>
+        <!-- Modal of update automovil-->
+        <div class="modal fade" id="modal_update{{automovil.id_automovil}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar la información del automovil</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Modifica los campos necesarios
+                <form action="{{url_for('actualizar_automovil', id_automovil=automovil.id_automovil)}}", method="POST">
+                  <div class="mb-1">
+                    <label for="recipient-name" class="col-form-label">Nombre completo</label>
+                    <input name="nombre_completo" type="text" class="form-control" value="{{ automovil.nombre_propietario }}" required>
+                  </div>
+                  <div class="modal-footer">        
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                  </div>  
+                </form>
+              </div>      
+            </div>
+          </div>
+        </div>
+        <!-- Modal of delete automovil-->
+        <div class="modal fade" id="modal_delete{{automovil.id_automovil}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <form action="{{url_for('eliminar_automovil', id_automovil=automovil.id_automovil)}}" method="POST">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ¿Estás seguro de que deseas eliminar este automovil? <br>
+                  <label for="recipient-name" class="col-form-label">Nombre:</label>
+                  <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ automovil.nombre_propietario }}" disabled>                    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-danger" id="confirmDeleteButton">Confirmar</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- this is the navbar for the employees -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <!--Lo que recibe es el total de paginas-->          
+      <li class="page-item disabled">
+        <a class="page-link">Anterior</a>
+      </li>                    
+      {% for i in range(data[1]) %}
+        <li class="page-item"><a class="page-link" href="{{url_for('menu_automoviles', page=i+1)}}">{{i+1}}</a></li>                    
+      {% endfor %}
+      <li class="page-item">
+        <a class="page-link" href="#">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal of create automovil-->
+<div class="modal fade" id="ModalCreateAutomovil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo automovil</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Introduce la siguiente información para dar de alta al nuevo automovil
+        <form action="{{ url_for('crear_automovil') }}", method="POST">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Nombre completo</label>
+            <input name="nombre_completo" type="text" class="form-control" required>
+          </div>  
+          <div class="modal-footer">        
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>  
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>      
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      El automovil ha sido eliminado correctamente
+    </div>
+  </div>
+</div>
 
 {% endblock %}

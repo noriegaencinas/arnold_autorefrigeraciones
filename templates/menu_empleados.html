@@ -2,7 +2,8 @@
 
 {% block styling %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/css/styles.css">  
+  <link rel="stylesheet" href="/static/css/styles.css">    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block nombre_menu %}Gestion de empleados{% endblock%} 
@@ -10,11 +11,11 @@
 <!-- Agregar dentro de este bloque el codigo del menu empleados-->
 <div class="container parent">
   <div class="row">    
-    <div class="col-lg-8 col-sm-12 col-10 child">                  
+    <div class="col-lg-8 child">                  
       <nav class="navbar">
         <div class="container-fluid">
           <form class="d-flex" role="search", action="{{url_for('select_empleado_by_filter')}}", method="POST">
-            <input class="form-control me-2 col-lg-3" type="search" placeholder="Empleado" aria-label="Search" name="filtro">
+            <input class="form-control me-2 col-lg-3" type="search" placeholder="Empleado" aria-label="Search" name="filtro" required>
             <button class="btn btn-outline-success col-lg-3" type="submit">Buscar</button>
           </form>
           <button type="button" class="btn btn-primary col-lg-3" data-bs-toggle="modal" data-bs-target="#ModalCreateEmpleado">      
@@ -34,25 +35,35 @@
             <th scope="col">Cargo</th>            
             <th scope="col">Numero</th>
             <th scope="col">Correo</th>
-            <th scope="col">Acciones</th>            
+            <th scope="col">Acciones</th>                   
+            <!-- Aqui los th ocultos -->            
+            <th scope="col" class="d-none">fecha_contratacion</th>
+            <th scope="col" class="d-none">horario_trabajo</th>
+            <th scope="col" class="d-none">salario</th>
+            <th scope="col" class="d-none">automovil_asignado</th>
           </tr>
         </thead>
         <tbody>
-          {% for empleado in empleados[0] %}
+          {% for empleado in data[0] %}
             <tr>
-              <th scope="row">{{ empleado[0] }}</th>
-              <td>{{ empleado[1] }}</td>
-              <td>{{ empleado[2] }}</td>            
-              <td>{{ empleado[6] }}</td>            
-              <td>{{ empleado[7] }}</td>        
+              <th>{{ empleado.id_empleado }}</th>
+              <td>{{ empleado.nombre_completo }}</td>
+              <td>{{ empleado.cargo }}</td>            
+              <td>{{ empleado.numero_contacto }}</td>            
+              <td>{{ empleado.correo_electronico }}</td>
+              <!-- Aqui los td ocultos -->
+              <td class="d-none">{{ empleado.fecha_contratacion }}</td>
+              <td class="d-none">{{ empleado.horario_trabajo }}</td>
+              <td class="d-none">{{ empleado.salario }}</td>
+              <td class="d-none">{{ empleado.automovil_asignado }}</td>
               <td>       
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal_update{{empleado[0]}}">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal_update{{empleado.id_empleado}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                   </svg>
                 </button>         
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete{{empleado[0]}}">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete{{empleado.id_empleado}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                   </svg>
@@ -60,7 +71,7 @@
               </td>            
             </tr>
             <!-- Modal of update empleado-->
-            <div class="modal fade" id="modal_update{{empleado[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal fade" id="modal_update{{empleado.id_empleado}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -69,34 +80,34 @@
                   </div>
                   <div class="modal-body">
                     Modifica los campos necesarios
-                    <form action="{{url_for('actualizar_empleado', id_empleado=empleado[0])}}", method="POST">
+                    <form action="{{url_for('actualizar_empleado', id_empleado=empleado.id_empleado)}}", method="POST">
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Nombre completo</label>
-                        <input name="nombre_completo" type="text" class="form-control" id="recipient-name" value="{{ empleado[1] }}">
+                        <input name="nombre_completo" type="text" class="form-control" value="{{ empleado.nombre_completo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="message-text" class="col-form-label">Cargo</label>
-                        <input name="cargo" type="text" class="form-control" id="recipient-name" value="{{ empleado[2] }}">
+                        <input name="cargo" type="text" class="form-control" value="{{ empleado.cargo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
-                        <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name" value="{{ empleado[3] }}">
+                        <input name="fecha_contratacion" type="date" class="form-control" id="recipient-date" value="{{ empleado.fecha_contratacion }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
-                        <input name="horario_trabajo" type="text" class="form-control" id="recipient-name" value="{{ empleado[5] }}">
+                        <input name="horario_trabajo" type="text" class="form-control" value="{{ empleado.horario_trabajo }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Número</label>
-                        <input name="numero_contacto" type="text" class="form-control" id="recipient-name" value="{{ empleado[6] }}">
+                        <input name="numero_contacto" type="text" class="form-control" value="{{ empleado.numero_contacto }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Correo electrónico</label>
-                        <input name="correo_electronico" type="text" class="form-control" id="recipient-name" value="{{ empleado[7] }}">
+                        <input name="correo_electronico" type="text" class="form-control" value="{{ empleado.correo_electronico }}" required>
                       </div>
                       <div class="mb-1">
                         <label for="recipient-name" class="col-form-label">Salario:</label>
-                        <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[8] }}">
+                        <input name="salario" type="number" class="form-control" value="{{ empleado.salario }}" required>
                       </div>      
                       <div class="modal-footer">        
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -108,10 +119,10 @@
               </div>
             </div>
             <!-- Modal of delete empleado-->
-            <div class="modal fade" id="modal_delete{{empleado[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modal_delete{{empleado.id_empleado}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                  <form action="{{url_for('eliminar_empleado', id_empleado=empleado[0])}}" method="POST">
+                  <form action="{{url_for('eliminar_empleado', id_empleado=empleado.id_empleado)}}" method="POST">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -119,9 +130,9 @@
                     <div class="modal-body">
                       ¿Estás seguro de que deseas eliminar este empleado? <br>
                       <label for="recipient-name" class="col-form-label">Nombre:</label>
-                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[1] }}" disabled>                    
+                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado.nombre_completo }}" disabled>                    
                       <label for="recipient-name" class="col-form-label">Cargo:</label>
-                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado[2] }}" disabled>
+                      <input name="salario" type="text" class="form-control" id="recipient-name" value="{{ empleado.cargo }}" disabled>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -138,41 +149,61 @@
       <!-- this is the navbar for the employees -->
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
+          <!--Lo que recibe es el total de paginas-->          
           <li class="page-item disabled">
             <a class="page-link">Anterior</a>
-          </li>          
-          {% for i in range(empleados[1]) %}
-            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i+1)}}">{{i+1}}</a></li>          
+          </li>                    
+          {% for i in range(data[1]) %}
+            <li class="page-item"><a class="page-link" href="{{url_for('menu_empleados', page=i+1)}}">{{i+1}}</a></li>                    
           {% endfor %}
           <li class="page-item">
             <a class="page-link" href="#">Siguiente</a>
           </li>
+          
         </ul>
       </nav>
     </div>
-
-    <div class="col-lg-4 col-sm-6 col-10 child">
-      <div class="card" style="width: 18rem;" id="details_card">
-        <img src="/static/icons/person-square.svg" class="card-img-top" alt="...">
+    <!-- this is the card for the employee details -->
+    <div class="col-lg-4 child">
+      <div class="card card-color" style="width: 18rem;" id="details_card">
+        <img src="/static/icons/person-square.svg" class="card-img-top my-3 mx-auto" style="max-width: 80%;" alt="...">
         <div class="card-body">
           <div class="row">
             <div class="col">
               <h5 class="card-title">Nombre</h5>
-              <p class="card-text">...</p>
+              <p class="placeholder-glow">
+                <span class="placeholder col-7"></span>
+              </p>       
               <h5 class="card-title">Cargo</h5>
-              <p class="card-text">...</p>
+              <p class="placeholder-glow">
+                <span class="placeholder col-9"></span>
+              </p>         
               <h5 class="card-title">Fecha de contratación</h5>
-              <p class="card-text">...</p>
+              <p class="placeholder-glow">
+                <span class="placeholder col-10"></span>
+              </p>
               <h5 class="card-title">Horario de trabajo</h5>
-              <p class="card-text">...</p>
-            </div>
-              <div class="col">
+              <p class="placeholder-glow">
+                <span class="placeholder col-9"></span>
+              </p>         
+            </div>       
+            <div class="col">
               <h5 class="card-title">Número</h5>
-              <p class="card-text">...</p>
+              <p class="placeholder-glow">
+                <span class="placeholder col-6"></span>
+              </p>  
               <h5 class="card-title">Correo electrónico</h5>
-              <p class="card-text">...</p>
+              <p class="placeholder-glow">
+                <span class="placeholder col-9"></span>
+              </p>                              
               <h5 class="card-title">Salario</h5>
-              <p class="card-text">...</p>    
+              <p class="placeholder-glow">
+                <span class="placeholder col-4"></span>
+              </p>
+              <h5 class="card-title">Automoviles asignados</h5>
+              <p class="placeholder-glow">
+                <span class="placeholder col-10"></span>
+              </p>  
             </div>
           </div>
         </div>
@@ -194,31 +225,31 @@
         <form action="{{ url_for('crear_empleado') }}", method="POST">
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Nombre completo</label>
-            <input name="nombre_completo" type="text" class="form-control" id="recipient-name">
+            <input name="nombre_completo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="message-text" class="col-form-label">Cargo</label>
-            <input name="cargo" type="text" class="form-control" id="recipient-name">
+            <input name="cargo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Fecha de contratación</label>
-            <input name="fecha_contratacion" type="text" class="form-control" id="recipient-name">
+            <input name="fecha_contratacion" type="date" class="form-control" id="recipient-date" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Horario de trabajo</label>
-            <input name="horario_trabajo" type="text" class="form-control" id="recipient-name">
+            <input name="horario_trabajo" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Número</label>
-            <input name="numero_contacto" type="text" class="form-control" id="recipient-name">
+            <input name="numero_contacto" type="number" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Correo electrónico</label>
-            <input name="correo_electronico" type="text" class="form-control" id="recipient-name">
+            <input name="correo_electronico" type="text" class="form-control" required>
           </div>
           <div class="mb-1">
             <label for="recipient-name" class="col-form-label">Salario:</label>
-            <input name="salario" type="text" class="form-control" id="recipient-name">
+            <input name="salario" type="number" class="form-control" required>
           </div>      
           <div class="modal-footer">        
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -244,4 +275,7 @@
 </div>
 
 <script src="/static/js/menu_empleados.js"></script>
+<!--Para el date-picker-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 {% endblock %}

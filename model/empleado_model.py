@@ -10,18 +10,38 @@ def select_empleados_db(page):
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
         c = conn.cursor()
         c.execute("SELECT * FROM empleados WHERE activo = ? LIMIT ?, ?", (activo, start, limit))
-        rows = c.fetchall()
+        myresult = c.fetchall()
+
+        # Convertir los datos a diccionario
+        insertObject = []
+        columnNames = [column[0] for column in c.description]
+        for record in myresult:
+            insertObject.append(dict(zip(columnNames, record)))    
 
         # Get total number of records
-        c.execute("SELECT count(id_empleado) FROM empleados WHERE activo = ?", (activo, ))
-        empleadosCount = c.fetchall()[0][0]
-        total_pages = ceil(empleadosCount / limit)
+        count = contar_automoviles_activos_db()  
+        total_pages = ceil(count / limit) 
 
         conn.close()
-        return [rows, total_pages]
+        return [insertObject, total_pages]
     except sqlite3.Error as e:
         print("Error:", e)
         return None
+
+def contar_automoviles_activos_db():
+    activo = 1
+    try:
+        conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        c = conn.cursor()
+        # Get total number of records
+        c.execute("SELECT count(id_empleado) FROM empleados WHERE activo = ?", (activo, ))
+        count = c.fetchall()[0][0]        
+        return count
+    except Exception as e:
+        return str(e)
+    finally:
+        if conn:
+            conn.close()
 
 def eliminar_empleado_db(id_empleado):
     inactivo = 0
@@ -59,21 +79,20 @@ def select_empleado_by_filter_db(filtro):
     activo = 1
     try:
         conn = sqlite3.connect("instance/arnold_autorefrigeraciones.db")
+        conn.row_factory = sqlite3.Row  # This allows you to access rows as dictionaries        
         c = conn.cursor()
         c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%' AND activo = ?", (filtro, activo))
-        rows = c.fetchall()        
-
+        rows = [dict(row) for row in c.fetchall()]  # Convert rows to dictionaries        
         # Get total number of records
-        c.execute("SELECT * FROM empleados WHERE nombre_completo LIKE '%' || ? || '%' AND activo = ?", (filtro, activo))
+        c.execute("SELECT count(id_empleado) FROM empleados WHERE nombre_completo LIKE '%' || ? || '%'", (filtro,))        
         count = c.fetchall()[0][0]
         total_pages = ceil(count / limit)
-
         conn.close()
         return [rows, total_pages]
     except sqlite3.Error as e:
         print("Error:", e)
         return None
-
+   
 test = False
 if test:
     select_empleado_by_filter_db('javier')
