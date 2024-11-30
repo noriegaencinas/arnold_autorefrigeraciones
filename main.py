@@ -3,8 +3,8 @@ from flask import Flask
 
 # Inicializando aplicación Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '<key>'
-app.config['SQLALCHEMY_DATABASE_URI'] = '<db_path>'
+app.config['SECRET_KEY'] = 'miguelito'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///arnold_autorefrigeraciones.db'
 
 from controller.menu_principal_controller import *
 from controller.inventario_controller import *
