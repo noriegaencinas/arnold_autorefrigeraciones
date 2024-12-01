@@ -1,5 +1,6 @@
 # Imports for Flask
 from flask import Flask
+from sec import ATK
 
 # Inicializando aplicación Flask
 app = Flask(__name__)
@@ -12,7 +13,8 @@ from controller.automovil_controller import *
 from controller.financiero_controller import *
 from controller.empleado_controller import *
 from controller.reparaciones_controller import *
-from controller.factura_controller import *
+from controller.factura_empleado_controller import *
+from controller.factura_cliente_controller import *
 from controller.cliente_controller import *
 
 if __name__ == '__main__':

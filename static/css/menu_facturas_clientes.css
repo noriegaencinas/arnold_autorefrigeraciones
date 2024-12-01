@@ -1,0 +1,23 @@
+h4 {
+    font-family: 'Hedvig Letters Serif', serif;
+}
+   
+p {
+    font-family: 'Hedvig Letters Serif', serif;
+}
+
+.azul-norm{
+    background-color: #19A7CE;
+}
+
+.azul-clarito{
+    background-color: #AFD3E2;
+}
+
+.borde-clarito {
+    border-left: 15px solid #AFD3E2; /* Cambia el grosor, estilo y color del borde */            
+}
+
+.borde-norm {
+    border-left: 15px solid #19A7CE; /* Cambia el grosor, estilo y color del borde */
+}
