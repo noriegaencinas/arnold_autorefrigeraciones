@@ -18,4 +18,4 @@ from controller.factura_cliente_controller import *
 from controller.cliente_controller import *
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
