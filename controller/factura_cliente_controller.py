@@ -7,4 +7,4 @@ from flask import render_template, request
 
 @app.route("/menu/facturas/")
 def menu_facturas_clientes():    
-    return render_template('menu_facturas_clientes  .html')
+    return render_template('menu_facturas_clientes.html')
