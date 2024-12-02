@@ -1,8 +1,8 @@
 from main import app
 
-from model.factura_empleado_model import *
+from model.factura_cliente_model import *
 
-from flask import render_template, request
+from flask import render_template
 # Menu facturas
 
 @app.route("/menu/facturas/")
