@@ -21,3 +21,15 @@ p {
 .borde-norm {
     border-left: 15px solid #19A7CE; /* Cambia el grosor, estilo y color del borde */
 }
+
+/* Default for large screens */
+.responsive-icon {
+    width: 20%;
+  }
+
+  /* For screens smaller than 576px */
+  @media (max-width: 576px) {
+    .responsive-icon {
+      width: 20%; /* Smaller size for mobile */
+    }
+  }
