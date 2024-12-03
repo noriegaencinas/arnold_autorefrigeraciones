@@ -33,3 +33,10 @@ p {
       width: 20%; /* Smaller size for mobile */
     }
   }
+
+.is-valid {
+  border-color: #198754;
+}
+.is-invalid {
+  border-color: #dc3545;
+}
