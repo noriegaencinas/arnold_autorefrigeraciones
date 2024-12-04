@@ -9,6 +9,10 @@ from flask import render_template, request
 def menu_facturas_clientes():    
     return render_template('menu_facturas_clientes.html')
 
+@app.route("/menu/facturas/datos")
+def menu_facturas_clientes_datos():    
+    return render_template('menu_facturas_clientes_2.html')
+
 @app.route("/menu/facturas/validar", methods=['POST'])
 def validar_factura():    
     data = request.json  # Usar JSON ya que el script envía datos en formato JSON

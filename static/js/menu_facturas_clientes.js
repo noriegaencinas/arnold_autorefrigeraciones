@@ -18,12 +18,13 @@ document.getElementById("form-validate").addEventListener("submit", async functi
   
       const result = await response.json();
   
-      if (result.status === "success") {
+      if (result.status === "success") {        
         // Datos válidos: Aplica estilos de éxito.
         document.querySelectorAll(".form-control").forEach(input => {
           input.classList.remove("is-invalid");
           input.classList.add("is-valid");
         });        
+        document.getElementById("validation-container").style.display = "none";
       } else {
         // Datos inválidos: Aplica estilos de error.
         document.querySelectorAll(".form-control").forEach(input => {

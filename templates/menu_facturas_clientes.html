@@ -17,7 +17,7 @@
   </head>
 
   <div class="container">
-    <header class="d-flex justify-content-center py-3" style="border-bottom: 1px solid #00000030;">
+    <header class="d-flex justify-content-center py-3 mb-3" style="border-bottom: 1px solid #00000030;">
       <img src="/static/img/logoai.png" alt="" width="30%" />
     </header>
   </div>
@@ -25,7 +25,7 @@
   <body>
 
     <div class="container">
-      <div class="row row-cols-3 row-cols-md-3 mb-3 text-center">
+      <div class="row row-cols-3 row-cols-md-3 mb-1 text-center">
         <div class="col">          
           <img src="/static/icons/check-circle.svg" alt="" class="responsive-icon">
           <h4 class="my-3 fw-normal">Buscar documentos</h4>
@@ -52,81 +52,82 @@
       </div>
     </div>
 
-    <div class="container">
-      <h4 class="fw-normal my-3">Buscar documentos</h4>
-      <p class="text-start">Para comenzar el proceso debe indicar los datos imprescindibles para localizar el documento en la plataforma.</p>
-    </div>
-
-    <div class="container shadow borde-norm mb-3">              
-      <div class="p-3">
-        <p class="text-start">Consideraciones importantes:</p>
-        <ul>
-            <li>Para obtener la factura tiene hasta el fin de mes en que realizó la transacción</li>
-            <li>Los datos necesarios se encuentran en el recibo de la compra</li>
-            <li>Si el ticket ya ha sido generado, da click en Siguiente para reenviar a correo electrónico</li>
-        </ul>       
+    <div id="validation-container">
+      <div class="container">
+        <h4 class="fw-normal my-3">Buscar documentos</h4>
+        <p class="text-start">Para comenzar el proceso debe indicar los datos imprescindibles para localizar el documento en la plataforma.</p>
       </div>
-    </div>
-    
-    <form id="form-validate" action="{{url_for('validar_factura')}}" method="POST">
-      <!-- Contenedor principal del formulario -->
-      <div class="container shadow borde-clarito mb-3">
+
+      <div class="container shadow borde-norm mb-3">              
         <div class="p-3">
-          <!-- Botón para borrar -->
-          <div class="container d-flex justify-content-end">
-            <button type="reset" class="btn btn-sm btn-danger">
-              <img src="/static/icons/x-circle.svg" alt="" height="20px">
-              Borrar
-            </button>
-          </div>
-    
-          <!-- Inputs del formulario -->
-          <div class="container">
-            <div class="row align-items-start">
-              <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                <label for="folio_numero" class="form-label h4 fw-normal">Número de folio</label>
-                <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
-              </div>
-              <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                <label for="importe_total" class="form-label h4 fw-normal">Importe total</label>
-                <input type="number" class="form-control" name="importe_total" id="importe_total" required>
-              </div>
-              <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                <label for="fecha_transaccion" class="form-label h4 fw-normal">Fecha</label>
-                <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
+          <p class="text-start">Consideraciones importantes:</p>
+          <ul>
+              <li>Para obtener la factura tiene hasta el fin de mes en que realizó la transacción</li>
+              <li>Los datos necesarios se encuentran en el recibo de la compra</li>
+              <li>Si el ticket ya ha sido generado, da click en Siguiente para reenviar a correo electrónico</li>
+          </ul>       
+        </div>
+      </div>
+      
+      <form id="form-validate" action="{{url_for('validar_factura')}}" method="POST">
+        <!-- Contenedor principal del formulario -->
+        <div class="container shadow borde-clarito mb-3">
+          <div class="p-3">
+            <!-- Botón para borrar -->
+            <div class="container d-flex justify-content-end">
+              <button type="reset" class="btn btn-sm btn-danger">
+                <img src="/static/icons/x-circle.svg" alt="" height="20px">
+                Borrar
+              </button>
+            </div>
+      
+            <!-- Inputs del formulario -->
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
+                  <label for="folio_numero" class="form-label h4 fw-normal">Número de folio</label>
+                  <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
+                </div>
+                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
+                  <label for="importe_total" class="form-label h4 fw-normal">Importe total</label>
+                  <input type="number" class="form-control" name="importe_total" id="importe_total" required>
+                </div>
+                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
+                  <label for="fecha_transaccion" class="form-label h4 fw-normal">Fecha</label>
+                  <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
+                </div>
               </div>
             </div>
-          </div>
-    
-          <!-- Botón para ver ejemplo -->
-          <div class="container d-flex justify-content-end">
-            <button type="button" class="btn btn-sm btn-warning" id="ver-ejemplo">
-              <img src="/static/icons/info.svg" alt="" height="20px">
-              Ver ejemplo
-            </button>
+      
+            <!-- Botón para ver ejemplo -->
+            <div class="container d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-warning" id="ver-ejemplo">
+                <img src="/static/icons/info.svg" alt="" height="20px">
+                Ver ejemplo
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    
-      <!-- Términos y condiciones -->
-      <div class="container shadow borde-clarito mb-3">
-        <div class="form-check d-flex align-items-center p-3">
-          <input class="form-check-input me-2" type="checkbox" id="termsCheck" required>
-          <label class="form-check-label" for="termsCheck">
-            <h4 class="fw-normal mb-0">Acepto los términos de uso</h4>
-          </label>
+      
+        <!-- Términos y condiciones -->
+        <div class="container shadow borde-clarito mb-3">
+          <div class="form-check d-flex align-items-center p-3">
+            <input class="form-check-input me-2" type="checkbox" id="termsCheck" required>
+            <label class="form-check-label" for="termsCheck">
+              <h4 class="fw-normal mb-0">Acepto los términos de uso</h4>
+            </label>
+          </div>
         </div>
-      </div>
-    
-      <!-- Botón de envío -->
-      <div class="container d-flex justify-content-end">
-        <button type="submit" class="btn btn-warning btn-lg">
-          <img src="/static/icons/check2.svg" alt="check icon" height="20px">
-          Validar
-        </button>
-      </div>
-    </form>
-    
+      
+        <!-- Botón de envío -->
+        <div class="container d-flex justify-content-end">
+          <button type="submit" class="btn btn-warning btn-lg">
+            <img src="/static/icons/check2.svg" alt="check icon" height="20px">
+            Validar
+          </button>
+        </div>
+      </form>
+    </div>
     
 
     <div class="container">
