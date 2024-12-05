@@ -43,10 +43,10 @@
     
     <div class="container">
       <div class="progress-stacked">
-        <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+        <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
           <div class="progress-bar azul-norm"></div>
         </div>
-        <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
+        <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
           <div class="progress-bar azul-clarito"></div>
         </div>        
       </div>
@@ -66,44 +66,44 @@
             <div class="container">
               <div class="row row-cols-1 row-cols-md-3  align-items-start">
                 <div class="col mb-3">
-                  <label for="folio_numero" class="form-label h4 fw-normal">RFC*</label>
-                  <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
+                  <label for="rfc" class="form-label h4 fw-normal">RFC*</label>
+                  <input type="text" class="form-control" name="rfc" id="rfc" required>
                 </div>
                 <div class="col mb-3">
-                  <label for="importe_total" class="form-label h4 fw-normal">Nombre*</label>
-                  <input type="number" class="form-control" name="importe_total" id="importe_total" required>
+                  <label for="nombre" class="form-label h4 fw-normal">Nombre*</label>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required>
                 </div>
                 <div class="col mb-3">
-                  <label for="fecha_transaccion" class="form-label h4 fw-normal">Colonia</label>
-                  <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
-                </div>
-              </div>
-              <div class="row row-cols-1 row-cols-md-3  align-items-start">
-                <div class="col mb-3">
-                  <label for="folio_numero" class="form-label h4 fw-normal">Regimen Fiscal*</label>
-                  <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
-                </div>
-                <div class="col mb-3">
-                  <label for="importe_total" class="form-label h4 fw-normal">Cósigo Postal</label>
-                  <input type="number" class="form-control" name="importe_total" id="importe_total" required>
-                </div>
-                <div class="col mb-3">
-                  <label for="fecha_transaccion" class="form-label h4 fw-normal">Calle</label>
-                  <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
+                  <label for="colonia" class="form-label h4 fw-normal">Colonia</label>
+                  <input type="text" class="form-control" name="colonia" id="colonia">
                 </div>
               </div>
               <div class="row row-cols-1 row-cols-md-3  align-items-start">
                 <div class="col mb-3">
-                  <label for="folio_numero" class="form-label h4 fw-normal">Uso de CFDI*</label>
-                  <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
+                  <label for="regimen_fiscal" class="form-label h4 fw-normal">Regimen Fiscal*</label>
+                  <input type="text" class="form-control" name="regimen_fiscal" id="regimen_fiscal" required>
                 </div>
                 <div class="col mb-3">
-                  <label for="importe_total" class="form-label h4 fw-normal">Correo Electrónico</label>
-                  <input type="number" class="form-control" name="importe_total" id="importe_total" required>
+                  <label for="codigo_postal" class="form-label h4 fw-normal">Código Postal*</label>
+                  <input type="number" class="form-control" name="codigo_postal" id="codigo_postal" required>
                 </div>
                 <div class="col mb-3">
-                  <label for="fecha_transaccion" class="form-label h4 fw-normal">Número exterior</label>
-                  <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
+                  <label for="calle" class="form-label h4 fw-normal">Calle</label>
+                  <input type="text" class="form-control" name="calle" id="calle">
+                </div>
+              </div>
+              <div class="row row-cols-1 row-cols-md-3  align-items-start">
+                <div class="col mb-3">
+                  <label for="uso_cfdi" class="form-label h4 fw-normal">Uso de CFDI*</label>
+                  <input type="text" class="form-control" name="uso_cfdi" id="uso_cfdi" required>
+                </div>
+                <div class="col mb-3">
+                  <label for="correo" class="form-label h4 fw-normal">Correo Electrónico</label>
+                  <input type="text" class="form-control" name="correo" id="correo">
+                </div>
+                <div class="col mb-3">
+                  <label for="numero_exterior" class="form-label h4 fw-normal">Número exterior</label>
+                  <input type="number" class="form-control" name="numero_exterior" id="numero_exterior">
                 </div>
               </div>
             </div>

@@ -11,7 +11,7 @@ def menu_facturas_clientes():
 
 @app.route("/menu/facturas/datos")
 def menu_facturas_clientes_datos():    
-    return render_template('menu_facturas_clientes_2.html')
+    return render_template('menu_facturas_clientes_datos.html')
 
 @app.route("/menu/facturas/validar", methods=['POST'])
 def validar_factura():    
