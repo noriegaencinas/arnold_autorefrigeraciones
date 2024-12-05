@@ -27,16 +27,9 @@ p {
     width: 20%;
   }
 
-  /* For screens smaller than 576px */
-  @media (max-width: 576px) {
-    .responsive-icon {
-      width: 20%; /* Smaller size for mobile */
-    }
+/* For screens smaller than 576px */
+@media (max-width: 576px) {
+  .responsive-icon {
+    width: 20%; /* Smaller size for mobile */
   }
-
-.is-valid {
-  border-color: #198754;
-}
-.is-invalid {
-  border-color: #dc3545;
 }
