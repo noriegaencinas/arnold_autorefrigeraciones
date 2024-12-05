@@ -43,10 +43,10 @@
     
     <div class="container">
       <div class="progress-stacked">
-        <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+        <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
           <div class="progress-bar azul-norm"></div>
         </div>
-        <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
+        <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
           <div class="progress-bar azul-clarito"></div>
         </div>        
       </div>
@@ -54,76 +54,67 @@
 
     <div id="validation-container">
       <div class="container">
-        <h4 class="fw-normal my-3">Buscar documentos</h4>
-        <p class="text-start">Para comenzar el proceso debe indicar los datos imprescindibles para localizar el documento en la plataforma.</p>
-      </div>
-
-      <div class="container shadow borde-norm mb-3">              
-        <div class="p-3">
-          <p class="text-start">Consideraciones importantes:</p>
-          <ul>
-              <li>Para obtener la factura tiene hasta el fin de mes en que realizó la transacción</li>
-              <li>Los datos necesarios se encuentran en el recibo de la compra</li>
-              <li>Si el ticket ya ha sido generado, da click en Siguiente para reenviar a correo electrónico</li>
-          </ul>       
-        </div>
+        <h4 class="fw-normal my-3">Completar datos de la empresa</h4>
+        <p class="text-start">Complete los datos para generar el CFDI. Los campos marcados con asterisco son obligatorios.</p>
       </div>
       
       <form id="form-validate" action="{{url_for('validar_factura')}}" method="POST">
         <!-- Contenedor principal del formulario -->
         <div class="container shadow borde-clarito mb-3">
-          <div class="p-3">
-            <!-- Botón para borrar -->
-            <div class="container d-flex justify-content-end">
-              <button type="reset" class="btn btn-sm btn-danger">
-                <img src="/static/icons/x-circle.svg" alt="" height="20px">
-                Borrar
-              </button>
-            </div>
-      
+          <div class="p-3">      
             <!-- Inputs del formulario -->
             <div class="container">
-              <div class="row align-items-start">
-                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                  <label for="folio_numero" class="form-label h4 fw-normal">Número de folio</label>
-                  <input type="text" class="form-control" name="folio_numero" id="folio_numero" required>
+              <div class="row row-cols-1 row-cols-md-3  align-items-start">
+                <div class="col mb-3">
+                  <label for="rfc" class="form-label h4 fw-normal">RFC*</label>
+                  <input type="text" class="form-control" name="rfc" id="rfc" required>
                 </div>
-                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                  <label for="importe_total" class="form-label h4 fw-normal">Importe total</label>
-                  <input type="number" class="form-control" name="importe_total" id="importe_total" required>
+                <div class="col mb-3">
+                  <label for="nombre" class="form-label h4 fw-normal">Nombre*</label>
+                  <input type="text" class="form-control" name="nombre" id="nombre" required>
                 </div>
-                <div class="col-lg-3 col-lx-3 col-sm-12 mb-3">
-                  <label for="fecha_transaccion" class="form-label h4 fw-normal">Fecha</label>
-                  <input type="date" class="form-control" name="fecha_transaccion" id="fecha_transaccion" required>
+                <div class="col mb-3">
+                  <label for="colonia" class="form-label h4 fw-normal">Colonia</label>
+                  <input type="text" class="form-control" name="colonia" id="colonia">
+                </div>
+              </div>
+              <div class="row row-cols-1 row-cols-md-3  align-items-start">
+                <div class="col mb-3">
+                  <label for="regimen_fiscal" class="form-label h4 fw-normal">Regimen Fiscal*</label>
+                  <input type="text" class="form-control" name="regimen_fiscal" id="regimen_fiscal" required>
+                </div>
+                <div class="col mb-3">
+                  <label for="codigo_postal" class="form-label h4 fw-normal">Código Postal*</label>
+                  <input type="number" class="form-control" name="codigo_postal" id="codigo_postal" required>
+                </div>
+                <div class="col mb-3">
+                  <label for="calle" class="form-label h4 fw-normal">Calle</label>
+                  <input type="text" class="form-control" name="calle" id="calle">
+                </div>
+              </div>
+              <div class="row row-cols-1 row-cols-md-3  align-items-start">
+                <div class="col mb-3">
+                  <label for="uso_cfdi" class="form-label h4 fw-normal">Uso de CFDI*</label>
+                  <input type="text" class="form-control" name="uso_cfdi" id="uso_cfdi" required>
+                </div>
+                <div class="col mb-3">
+                  <label for="correo" class="form-label h4 fw-normal">Correo Electrónico</label>
+                  <input type="text" class="form-control" name="correo" id="correo">
+                </div>
+                <div class="col mb-3">
+                  <label for="numero_exterior" class="form-label h4 fw-normal">Número exterior</label>
+                  <input type="number" class="form-control" name="numero_exterior" id="numero_exterior">
                 </div>
               </div>
             </div>
-      
-            <!-- Botón para ver ejemplo -->
-            <div class="container d-flex justify-content-end">
-              <button type="button" class="btn btn-sm btn-warning" id="ver-ejemplo">
-                <img src="/static/icons/info.svg" alt="" height="20px">
-                Ver ejemplo
-              </button>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Términos y condiciones -->
-        <div class="container shadow borde-clarito mb-3">
-          <div class="form-check d-flex align-items-center p-3">
-            <input class="form-check-input me-2" type="checkbox" id="termsCheck" required>
-            <label class="form-check-label" for="termsCheck">
-              <h4 class="fw-normal mb-0">Acepto los términos de uso</h4>
-            </label>
           </div>
         </div>
       
         <!-- Botón de envío -->
         <div class="container d-flex justify-content-end">
-          <button type="submit" id="validate-button" class="btn btn-warning btn-lg">
-            <img src="/static/icons/check2.svg" alt="check icon" height="20px">
-            Validar
+          <button type="submit" class="btn btn-warning btn-lg">
+            <img src="/static/icons/arrow-right.svg" alt="check icon" height="20px">
+            Siguiente
           </button>
         </div>
       </form>

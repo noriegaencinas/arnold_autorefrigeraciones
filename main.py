@@ -17,6 +17,6 @@ from controller.factura_cliente_controller import *
 from controller.cliente_controller import *
 
 if __name__ == '__main__':
-    #app.run(debug=False)
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=False)
+    #app.run(debug=True, host="0.0.0.0")
 # sdfgdfgd
